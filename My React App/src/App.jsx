@@ -5,37 +5,18 @@ import "./index.css";
 import Login from "./components/Login";
 import { Routes, Route } from "react-router-dom";
 import Error from "./components/Error";
-
-
-
-
-
+import Signup from "./components/Signup";
 
 export default function App() {
-
-
-
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path='/' element={<Hero />} />
-
-        <Route path='/login' element={<Login />} />
-        <Route path='*' element={<Error />} />
-
-    
-
-
-
+        <Route path="/" element={<Hero />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<Error />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
-
-
-
-
     </>
-
-
   );
 }
-

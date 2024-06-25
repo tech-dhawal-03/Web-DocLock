@@ -98,11 +98,12 @@ body {
   overflow: hidden;
   border-radius: 52px;
   background: #ffffff;
-  box-shadow: 22px 22px 10px #666666,
-    -22px -22px 10px #ffffff;
+  box-shadow: 10px 10px 10px #666666,
+   -5px -5px 10px #666666,
+   inset 10px 10px 10px #ffffff;
   justify-content: space-around;
   gap: 12rem;
-  height: 4rem;
+  height: 3.5rem;
   color: #111;
   align-items: center;
   width: 50%;
@@ -123,18 +124,17 @@ body {
 }
 
 .navbar_text {
-  width: 100px;
+  width: 90px;
   text-align: center;
-  padding: 10px;
+  padding: 8px;
   transition: 0.5s;
+  border-radius: 68px;
 }
 
 .navbar_text:hover {
-  border-radius: 68px;
   background: #c2c2c2;
   box-shadow: 5px 5px 10px #4e4e4e, 5px -5px 10px #ffffff;
 }
-
 a {
   text-decoration: none;
   color: #111;

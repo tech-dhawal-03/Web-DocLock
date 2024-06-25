@@ -1,14 +1,13 @@
 /* CSS for login page */
 .login_body {
   display: flex;
-  margin: 40px;
+  margin: -50px 30px;
   justify-content: space-between;
   align-items: center;
-  min-height: 100vh;
+  height: 90vh;
   border-radius: 30px;
   background: linear-gradient(90deg,#fff,#cf10ff);;
   box-shadow: 5px 5px 20px #121212,inset 5px 5px 10px #fefefe;
-  margin-top:100px;
 }
 .container {
   position: relative;
@@ -122,7 +121,7 @@
   bottom: 0;
   width: 100px;
   height: 100px;
-  background: #10a3ff;
+  background: #cf10ff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -157,7 +156,7 @@
   right: -120px;
   width: 60px;
   height: 60px;
-  background: #0066ff;
+  background: #cf10ff;
   border-radius: 49% 51% 52% 48% / 63% 59% 41% 37%;
   box-shadow: inset 10px 10px 10px rgba(1, 180, 255, 0.1),
     15px 25px 10px rgba(1, 180, 255, 0.1),
@@ -175,7 +174,7 @@
   bottom: -60px;
   width: 100px;
   height: 100px;
-  background: #f90df1;
+  background: #cf10ff;
   display: flex;
   justify-content: center;
   align-items: center;

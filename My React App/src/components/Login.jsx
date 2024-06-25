@@ -1,6 +1,7 @@
 import React from "react";
 import loginpik from "../assets/loginpik.png";
 import "../all_css/login.css";
+import { Link } from "react-router-dom";
 
 function Login() {
   return (
@@ -8,7 +9,10 @@ function Login() {
       <div className="container">
         <div className="drop">
           <div className="content">
-            <h2>WELCOME BACK!! <br />LOG IN</h2>
+            <h2>
+              WELCOME BACK!! <br />
+              LOG IN
+            </h2>
             <form>
               <div className="inputbox">
                 <input type="text" placeholder="Username" required />
@@ -25,9 +29,9 @@ function Login() {
         <a href="#" className="btns">
           Forget Password
         </a>
-        <a href="#" className="btns signup">
+        <Link to={"/signup"} className="btns signup">
           SignUp
-        </a>
+        </Link>
         <a href="#" className="btns signupgoogle">
           SignIn with Google
         </a>
