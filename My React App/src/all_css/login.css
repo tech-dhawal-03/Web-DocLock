@@ -168,7 +168,7 @@
   width: 15px;
   height: 15px;
 }
-.btns.signupgoogle {
+.signupgoogle {
   position: absolute;
   left: -60px;
   bottom: -60px;
@@ -213,4 +213,8 @@
 }
 .login_image{
   width: 90%;
+}
+
+.google_signin{
+  background:white;
 }

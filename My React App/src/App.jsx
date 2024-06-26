@@ -10,6 +10,7 @@ import Signup from "./components/Signup";
 export default function App() {
   return (
     <>
+
       <Navbar />
       <Routes>
         <Route path="/" element={<Hero />} />

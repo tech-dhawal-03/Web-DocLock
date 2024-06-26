@@ -2,6 +2,10 @@ import React from "react";
 import signuppik from "../assets/signuppik.png";
 import "../all_css/signup.css";
 import { Link } from "react-router-dom";
+import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
+import Google from "../assets/google_logo.png";
+
 
 function Signup() {
   return (
@@ -44,3 +48,30 @@ function Signup() {
 }
 
 export default Signup;
+
+export const CustomButton = () => {
+  const login = useGoogleLogin({
+    onSuccess: codeResponse => console.log(codeResponse),
+    flow: 'auth-code',
+  });
+
+ 
+  return(
+    <div>
+      <button className="google_signin"onClick={login}>
+        <img src={Google} width="50px"></img>
+        
+        
+      </button>
+    
+    </div>
+  
+    
+
+  
+    
+  )
+
+
+}
+
