@@ -18,8 +18,8 @@
 }
 .container_signup .drop_signup {
   position: relative;
-  width: 450px;
-  height: 450px;
+  width: 500px;
+  height: 500px;
   box-shadow: inset 20px 20px 20px rgba(0, 0, 0, 0.1),
     25px 35px 20px rgba(0, 0, 0, 0.05), 25px 30px 30px rgba(0, 0, 0, 0.1),
     inset -20px -20px 25px rgba(255, 255, 255, 0.9);
@@ -62,7 +62,7 @@
   flex-direction: column;
   text-align: center;
   padding: 30px;
-  gap: 20px;
+  gap: 10px;
 }
 .container_signup .drop_signup .content_signup h2 {
   position: relative;
@@ -75,13 +75,16 @@
 .container_signup .drop_signup .content_signup form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
   justify-content: center;
   align-items: center;
 }
 .container_signup .drop_signup .content_signup form .inputbox_signup {
   position: relative;
   width: 275px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
   box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.2),
     inset -2px -5px 10px rgba(255, 255, 255, 1),
     15px 15px 10px rgba(0, 0, 0, 0.1), 15px 10px 15px rgba(0, 0, 0, 0.1);
@@ -112,7 +115,7 @@
   .drop_signup
   .content_signup
   form
-  .inputbox_signup:last-child {
+  .inputbox_signup:nth-child(4) {
   background: #0066ff;
   width: 120px;
   box-shadow: inset 2px 5px 10px rgba(255, 255, 255, 0.6),
@@ -123,10 +126,10 @@
   .drop_signup
   .content_signup
   form
-  .inputbox_signup:last-child:hover {
+  .inputbox_signup:nth-child(4):hover {
   width: 140px;
 }
-.btns_signup {
+.btns_signup.login {
   position: absolute;
   right: -120px;
   bottom: 0;
@@ -138,19 +141,21 @@
   align-items: center;
   cursor: pointer;
   text-decoration: none;
-  color: #fff;
-  line-height: 1.2em;
+  color: hsl(0, 0%, 100%);
   padding: 10px;
   letter-spacing: 0.1em;
-  font-size: 0.9em;
+  font-size: 1em;
   text-align: center;
+  font-family: "Arvo", sans-serif;
+  font-weight: 600;
+  font-style: normal;
   transition: 0.25s;
   box-shadow: inset 10px 10px 10px rgba(190, 1, 254, 0.1),
     15px 25px 10px rgba(190, 1, 254, 0.1), 15px 20px 20px rgba(190, 1, 254, 0.1),
     inset -10px -10px 15px rgba(255, 255, 255, 0.5);
   border-radius: 44% 56% 65% 35% / 57% 58% 42% 43%;
 }
-.btns_signup::before {
+.btns_signup.login::before {
   content: "";
   position: absolute;
   top: 15px;
@@ -161,53 +166,18 @@
   background: #fff;
   opacity: 0.45;
 }
-.btns_signup.login {
-  bottom: 150px;
-  right: -120px;
-  width: 60px;
-  height: 60px;
-  background: #0066ff;
-  border-radius: 49% 51% 52% 48% / 63% 59% 41% 37%;
-  box-shadow: inset 10px 10px 10px rgba(1, 180, 255, 0.1),
-    15px 25px 10px rgba(1, 180, 255, 0.1), 15px 20px 20px rgba(1, 180, 255, 0.1),
-    inset -10px -10px 15px rgba(255, 255, 255, 0.5);
-}
-.btns_signup.login::before {
-  left: 20px;
-  width: 15px;
-  height: 15px;
-}
-.btns_signup.signupgoogle_signup {
-  position: absolute;
-  left: -60px;
-  bottom: -60px;
-  width: 100px;
-  height: 100px;
-  background: #0066ff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  text-decoration: none;
-  color: #fff;
-  line-height: 1.2em;
-  padding: 10px;
-  letter-spacing: 0.1em;
-  font-size: 0.9em;
-  text-align: center;
-  transition: 0.25s;
-  box-shadow: inset 10px 10px 10px rgba(190, 1, 254, 0.1),
-    15px 25px 10px rgba(190, 1, 254, 0.1), 15px 20px 20px rgba(190, 1, 254, 0.1),
-    inset -10px -10px 15px rgba(255, 255, 255, 0.5);
-  border-radius: 44% 56% 65% 35% / 57% 58% 42% 43%;
-}
-.btns_signup.signupgoogle_signup::before {
-  left: 20px;
-  width: 15px;
-  height: 15px;
-}
 .btns_signup:hover {
   border-radius: 50%;
+}
+.signupgoogle_signup{
+  width: 200px;
+  border: 2px solid #0066ff;
+  color: #0066ff;
+  padding: 5px;
+  border-radius: 60px;
+  font-family: "Arvo", sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .aboutus_signup {
@@ -220,4 +190,9 @@
 }
 .login_image_signup {
   width: 100%;
+}
+
+.icon{
+  width: 50px;
+  color: #0066ff;
 }
