@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
+import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
+import Google from "../assets/google_logo.png";
+
 
 function Signup() {
   return (
@@ -32,8 +36,10 @@ function Signup() {
               <div className="inputbox_signup">
                 <input type="submit" value="Sign-in" />
               </div>
-              <a href=""><div className="signupgoogle_signup">
-                SignIn with Google
+              <a href=""><div>
+                {<CustomButton />}
+              
+                
               </div>
               </a>
             </form>
@@ -51,3 +57,30 @@ function Signup() {
 }
 
 export default Signup;
+
+export const CustomButton = () => {
+  const login = useGoogleLogin({
+    onSuccess: codeResponse => console.log(codeResponse),
+    flow: 'auth-code',
+  });
+
+ 
+  return(
+    <div>
+      <button className="signupgoogle_signup" onClick={login}>
+        SignIn with Google
+        
+        
+        
+      </button>
+    
+    </div>
+  
+    
+
+  
+    
+  )
+
+
+}
