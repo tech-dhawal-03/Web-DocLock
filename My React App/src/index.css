@@ -96,11 +96,15 @@ body {
   display: flex;
   position: fixed;
   overflow: hidden;
-  border-radius: 52px;
+  /* border-radius: 52px;
   background: #ffffff;
   box-shadow: 10px 10px 10px #666666,
    -5px -5px 10px #666666,
-   inset 10px 10px 10px #ffffff;
+   inset 10px 10px 10px #ffffff; */
+  border-radius: 61px;
+  background: #ffffff;
+  box-shadow: 16px 16px 32px #919191,
+    -16px -16px 32px #ffffff;
   justify-content: space-around;
   gap: 12rem;
   height: 3.5rem;
@@ -135,6 +139,7 @@ body {
   background: #c2c2c2;
   box-shadow: 5px 5px 10px #4e4e4e, 5px -5px 10px #ffffff;
 }
+
 a {
   text-decoration: none;
   color: #111;
@@ -169,7 +174,7 @@ a {
   margin-bottom: 20px;
 }
 
-.error{
+.error {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -179,10 +184,7 @@ a {
 
 }
 
-.error h4{
+.error h4 {
   font-size: 1rem;
   margin-top: 0;
 }
-
-
-
