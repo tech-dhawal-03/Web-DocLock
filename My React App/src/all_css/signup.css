@@ -35,8 +35,8 @@
 .container_signup .drop_signup::before {
   content: "";
   position: absolute;
-  top: 50px;
-  left: 85px;
+  top: 70px;
+  left: 100px;
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -46,8 +46,8 @@
 .container_signup .drop_signup::after {
   content: "";
   position: absolute;
-  top: 90px;
-  left: 110px;
+  top: 110px;
+  left: 130px;
   width: 15px;
   height: 15px;
   border-radius: 50%;
@@ -169,27 +169,25 @@
 .btns_signup:hover {
   border-radius: 50%;
 }
-
-.sign_in_google{
-  display: flex;
-  
-
-}
 .signupgoogle_signup{
   width: 200px;
   border: 2px solid #0066ff;
   color: #0066ff;
   padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
   border-radius: 60px;
   font-family: "Arvo", sans-serif;
   font-weight: 600;
   font-style: normal;
   cursor: pointer;
+  transition: 0.25s;
 }
 .signupgoogle_signup:hover{
-  /* width: 140px; */
+  box-shadow: inset 2px 2px 5px #0066ff,
+  2px 2px 5px #0066ff;
 }
-
 .aboutus_signup {
   width: 50%;
   border-radius: 0 30px 30px 0;
@@ -205,4 +203,16 @@
 .icon{
   width: 50px;
   color: #0066ff;
+}
+.icon_google{
+  width: 20px;
+  height: 20px;
+}
+.password_toggle_icon{
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  z-index: 100;
+  color: #0066ff;
+  cursor: pointer;
 }

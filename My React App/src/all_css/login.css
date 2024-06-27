@@ -192,3 +192,11 @@
   width: 50px;
   color: #cf10ff;
 }
+.password_toggle_icon_login{
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  z-index: 100;
+  color: #cf10ff;
+  cursor: pointer;
+}

@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import signuppik from "../assets/signuppik.png";
 import "../all_css/signup.css";
 import { Link } from "react-router-dom";
-import { FaEnvelope } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
-import { GoogleLogin } from '@react-oauth/google';
-import { useGoogleLogin } from '@react-oauth/google';
-import Google from "../assets/google_logo.png";
-
+import { FaEnvelope, FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { GoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
+import { FcGoogle } from "react-icons/fc";
 
 function Signup() {
+  const [visible, setVisiblity] = useState(false);
+
+  const toggle = () => {
+    setVisiblity(!visible);
+  };
   return (
     <div className="signup_body">
       <div className="container_signup">
@@ -31,16 +33,25 @@ function Signup() {
               </div>
               <div className="inputbox_signup">
                 <FaLock className="icon" />
-                <input type="password" placeholder="Password" required />
+                <input
+                  type={visible ? "text" : "password"}
+                  placeholder="Password"
+                  required
+                />
+                <span className="password_toggle_icon">
+                  {visible ? (
+                    <FaEyeSlash onClick={toggle} />
+                  ) : (
+                    <FaEye onClick={toggle} />
+                  )}
+                </span>
               </div>
+
               <div className="inputbox_signup">
                 <input type="submit" value="Sign-in" />
               </div>
-              <a href=""><div>
-                {<CustomButton />}
-              
-                
-              </div>
+              <a href="">
+                <div>{<CustomButton />}</div>
               </a>
             </form>
           </div>
@@ -60,27 +71,18 @@ export default Signup;
 
 export const CustomButton = () => {
   const login = useGoogleLogin({
-    onSuccess: codeResponse => console.log(codeResponse),
-    flow: 'auth-code',
+    onSuccess: (codeResponse) => console.log(codeResponse),
+    flow: "auth-code",
   });
 
- 
-  return(
+  return (
     <div>
       <button className="signupgoogle_signup" onClick={login}>
+        <span>
+          <FcGoogle className="icon_google" />
+        </span>
         SignIn with Google
-        
-        
-        
       </button>
-    
     </div>
-  
-    
-
-  
-    
-  )
-
-
-}
+  );
+};
