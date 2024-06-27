@@ -3,40 +3,81 @@ import signuppik from "../assets/signuppik.png";
 import "../all_css/signup.css";
 import { Link } from "react-router-dom";
 import { FaEnvelope, FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
-import { GoogleLogin } from "@react-oauth/google";
 import { useGoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
 
 function Signup() {
   const [visible, setVisiblity] = useState(false);
 
   const toggle = () => {
     setVisiblity(!visible);
-  };
+
+  }
+
+  // getting values inserted by the user in signup page
+  const [form, Setform] = useState({});
+
+  const handleValue = (e) => {
+    // console.log(e.target.value,e.target.name)
+    Setform({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+    console.log(JSON.stringify(form))
+
+  }
+
+  // getting all the values as js object on clicking submit button
+  const handleform = async (e) => {
+    e.preventDefault();
+
+    // sending data to backend
+     axios({
+      method: 'POST',
+      url : 'http://localhost:3000',
+      data : JSON.stringify(form)
+    }).then(response => console.log(response))
+
+    
+
+    
+    
+      
+    }
+
+    
+
+
+    // console.log(form);
+
+  
+
   return (
     <div className="signup_body">
       <div className="container_signup">
         <div className="drop_signup">
           <div className="content_signup">
             <h2>
+
               NEW HERE!! <br />
               SIGN IN
             </h2>
-            <form>
+            <form onSubmit={handleform}>
               <div className="inputbox_signup">
                 <FaEnvelope className="icon" />
-                <input type="email" placeholder="E-mail" required />
+                <input type="email" placeholder="E-mail" required onChange={handleValue} name="Email" autoComplete="false" autoFocus="fals" />
               </div>
               <div className="inputbox_signup">
                 <FaUser className="icon" />
-                <input type="text" placeholder="Username" required />
+                <input type="text" placeholder="Username" required onChange={handleValue} name="Username" autoComplete="false" autoFocus="false" />
               </div>
               <div className="inputbox_signup">
                 <FaLock className="icon" />
                 <input
                   type={visible ? "text" : "password"}
                   placeholder="Password"
-                  required
+                  required onChange={handleValue} name="Password" autoComplete="false" autoFocus="false"
                 />
                 <span className="password_toggle_icon">
                   {visible ? (
@@ -65,8 +106,8 @@ function Signup() {
       </div>
     </div>
   );
-}
 
+}
 export default Signup;
 
 export const CustomButton = () => {
