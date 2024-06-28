@@ -10,8 +10,11 @@ server.use(bodyParser.json());
 
 // data from frontend is received as --> req
 // data to be sent from backend is sent as --> res
-server.post("/demo",(req,res)=>{
-    console.log(req.body)
+server.post("/",(req,res)=>{
+    console.log(req.body);
+    res.json(req.body);
+    
+
 
 })
 

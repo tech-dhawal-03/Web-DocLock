@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { FaEnvelope, FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useGoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
-import axios from "axios";
+
 
 function Signup() {
   const [visible, setVisiblity] = useState(false);
@@ -24,7 +24,7 @@ function Signup() {
       ...form,
       [e.target.name]: e.target.value
     })
-    console.log(JSON.stringify(form))
+    // console.log(JSON.stringify(form))
 
   }
 
@@ -33,11 +33,18 @@ function Signup() {
     e.preventDefault();
 
     // sending data to backend
-     axios({
-      method: 'POST',
-      url : 'http://localhost:3000',
-      data : JSON.stringify(form)
-    }).then(response => console.log(response))
+
+    
+     const response = await fetch('http://localhost:3000',{
+      method:'POST',
+      body:JSON.stringify(form),
+      headers:{
+        'Content-Type':'application/json'
+      }
+
+     })
+
+     console.log(await response.text());
 
     
 
@@ -63,21 +70,21 @@ function Signup() {
               NEW HERE!! <br />
               SIGN IN
             </h2>
-            <form onSubmit={handleform}>
+            <form onSubmit={handleform} autoComplete="off">
               <div className="inputbox_signup">
                 <FaEnvelope className="icon" />
-                <input type="email" placeholder="E-mail" required onChange={handleValue} name="Email" autoComplete="false" autoFocus="fals" />
+                <input type="email" placeholder="E-mail" required onChange={handleValue} name="Email" />
               </div>
               <div className="inputbox_signup">
                 <FaUser className="icon" />
-                <input type="text" placeholder="Username" required onChange={handleValue} name="Username" autoComplete="false" autoFocus="false" />
+                <input type="text" placeholder="Username" required  onChange={handleValue} name="Username" />
               </div>
               <div className="inputbox_signup">
                 <FaLock className="icon" />
                 <input
                   type={visible ? "text" : "password"}
-                  placeholder="Password"
-                  required onChange={handleValue} name="Password" autoComplete="false" autoFocus="false"
+                  placeholder="Password" required
+                 onChange={handleValue} name="Password" 
                 />
                 <span className="password_toggle_icon">
                   {visible ? (
