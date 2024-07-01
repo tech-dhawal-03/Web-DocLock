@@ -1,0 +1,141 @@
+.cardhome_container {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+.upper_bar {
+  width: auto;
+  height: 9vh;
+  box-shadow: 2px 2px 10px #111;
+  display: flex;
+  z-index: 20;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1vh;
+  padding-top: 2vh;
+}
+.upper_bar img {
+  width: 8rem;
+}
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+.welcome h1 {
+  font-family: "Arvo", serif;
+  font-weight: 700;
+  font-style: normal;
+  height: 10px;
+}
+.welcome h3 {
+  font-family: "Arvo", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.vertical_nav {
+  background: linear-gradient(#fff, #cf10ff);
+  width: 12vw;
+  height: 80vh;
+  padding: 4vh;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-family: "Arvo", serif;
+  font-weight: 400;
+  font-style: normal;
+  gap: 6vh;
+}
+.logout {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 12vw;
+  height: 6vh;
+  position: relative;
+  border-radius: 15px;
+  background: #fff;
+  text-align: center;
+  font-family: "Arvo", serif;
+  font-weight: 700;
+  font-size: 2.5vh;
+  font-style: normal;
+  border: none;
+  cursor: pointer;
+  box-shadow: inset 1px 1px 3px #111;
+}
+.logout div {
+  background: hsl(288, 91%, 64%);
+  border-radius: 11px;
+  height: 4.5vh;
+  width: 3vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 5px;
+  transition: 0.5s;
+}
+.logout:hover div {
+  width: 11.1vw;
+  z-index: 10;
+}
+.logout_icon {
+  color: #000;
+  font-weight: 900;
+}
+.logout p {
+  translate: 2vh;
+  opacity: 1;
+  transition: 0.5s;
+}
+.logout:hover p {
+  opacity: 0;
+}
+.nav_content {
+  padding: 0 3vh;
+  width: 100%;
+  display: flex;
+  margin: 0 -3vh;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1vh;
+}
+.nav_content button {
+  transition: 0.5s;
+  padding: 0.2vh;
+  height: 5vh;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.5s;
+  border: none;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: none;
+  font-size: 2.5vh;
+  font-family: "Arvo", serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #111;
+}
+.nav_content .vertical_nav_icon {
+  transition: 0.5s;
+  padding: 0 0.6vh;
+}
+.nav_content button:hover .vertical_nav_icon {
+  color: #cf10ff;
+  font-size: xx-large;
+}
+.nav_content button:hover p{
+    color: #cf10ff;
+    font-weight: 700;
+}
+.document_image {
+  width: 30vh;
+  margin-left: -3vh;
+}

@@ -40,23 +40,10 @@ function Signup() {
     });
 
     console.log(await response.text());
+    console.log(await response.json());
   };
 
-     console.log(await response.json());
-
-    
-
-    
-    
-      
-    }
-
-    
-
-
-    // console.log(form);
-
-  
+  // console.log(form);
 
   return (
     <div className="signup_body">
@@ -115,7 +102,7 @@ function Signup() {
             </form>
           </div>
         </div>
-        <Link to={"/login"} className="btns_signup loginp">
+        <Link to={"/login"} className="btns_signup login">
           Login
         </Link>
       </div>
@@ -124,6 +111,7 @@ function Signup() {
       </div>
     </div>
   );
+}
 
 export default Signup;
 
