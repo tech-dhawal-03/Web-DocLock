@@ -42,7 +42,21 @@ function Signup() {
     console.log(await response.text());
   };
 
-  // console.log(form);
+     console.log(await response.json());
+
+    
+
+    
+    
+      
+    }
+
+    
+
+
+    // console.log(form);
+
+  
 
   return (
     <div className="signup_body">
@@ -101,7 +115,7 @@ function Signup() {
             </form>
           </div>
         </div>
-        <Link to={"/login"} className="btns_signup login">
+        <Link to={"/login"} className="btns_signup loginp">
           Login
         </Link>
       </div>
@@ -110,7 +124,7 @@ function Signup() {
       </div>
     </div>
   );
-}
+
 export default Signup;
 
 export const CustomButton = () => {
