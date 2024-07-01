@@ -35,7 +35,7 @@ function Signup() {
     // sending data to backend
 
     
-     const response = await fetch('http://localhost:3000',{
+     const response = await fetch('http://localhost:3000/signup',{
       method:'POST',
       body:JSON.stringify(form),
       headers:{

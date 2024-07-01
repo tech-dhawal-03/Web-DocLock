@@ -10,6 +10,31 @@ function Login() {
   const toggle = () => {
     setVisiblity(!visible);
   };
+
+  const[login,Setlogin]=useState({})
+
+  const handleCred = (e)=>{
+    console.log(e.target.value,e.target.name)
+
+    Setlogin({
+      ...login,
+      [e.target.name]:e.target.value
+    })
+
+  }
+
+  const authenticateLogin = async(e)=>{
+    e.preventDefault();
+    const response = await fetch('http://localhost:3000/login',{
+      method : 'POST',
+      body:JSON.stringify(login),
+      headers:{
+        'Content-Type':'application/json'
+      }
+   
+    })
+    console.log(await response.text())
+  }
   return (
     <div className="login_body">
       <div className="container">
@@ -19,17 +44,17 @@ function Login() {
               WELCOME BACK!! <br />
               LOG IN
             </h2>
-            <form>
+            <form onSubmit={authenticateLogin}>
               <div className="inputbox">
                 <FaUser className="icon_login" />
-                <input type="text" placeholder="Username" required />
+                <input type="text" placeholder="Username" required name="log_username" onChange={handleCred} />
               </div>
               <div className="inputbox">
                 <FaLock className="icon_login" />
                 <input
                   type={visible ? "text" : "password"}
                   placeholder="Password"
-                  required
+                  required name='log_password' onChange={handleCred}
                 />
                 <span className="password_toggle_icon_login">
                   {visible ? (
