@@ -31,86 +31,90 @@ function Signup() {
 
     // sending data to backend
 
-    const response = await fetch("http://localhost:3000", {
-      method: "POST",
+
+    const response = await fetch('http://localhost:3000/signup', {
+      method: 'POST',
       body: JSON.stringify(form),
       headers: {
-        "Content-Type": "application/json",
-      },
-    });
+        'Content-Type': 'application/json'
+      }
+    })
+    console.log(await response.json())
 
-    console.log(await response.text());
-    console.log(await response.json());
-  };
 
-  // console.log(form);
+    // console.log(await response.text());
+    // console.log(await response.json());
+  }
 
-  return (
-    <div className="signup_body">
-      <div className="container_signup">
-        <div className="drop_signup">
-          <div className="content_signup">
-            <h2>
-              NEW HERE!! <br />
-              SIGN IN
-            </h2>
-            <form onSubmit={handleform} autoComplete="off">
-              <div className="inputbox_signup">
-                <FaEnvelope className="icon" />
-                <input
-                  type="email"
-                  placeholder="E-mail"
-                  required
-                  onChange={handleValue}
-                  name="Email"
-                />
-              </div>
-              <div className="inputbox_signup">
-                <FaUser className="icon" />
-                <input
-                  type="text"
-                  placeholder="Username"
-                  required
-                  onChange={handleValue}
-                  name="Username"
-                />
-              </div>
-              <div className="inputbox_signup">
-                <FaLock className="icon" />
-                <input
-                  type={visible ? "text" : "password"}
-                  placeholder="Password"
-                  required
-                  onChange={handleValue}
-                  name="Password"
-                />
-                <span className="password_toggle_icon">
-                  {visible ? (
-                    <FaEyeSlash onClick={toggle} />
-                  ) : (
-                    <FaEye onClick={toggle} />
-                  )}
-                </span>
-              </div>
 
-              <div className="inputbox_signup">
-                <input type="submit" value="Sign-in" />
-              </div>
-              <a href="">
-                <div>{<CustomButton />}</div>
-              </a>
-            </form>
-          </div>
+// console.log(form);
+
+return (
+  <div className="signup_body">
+    <div className="container_signup">
+      <div className="drop_signup">
+        <div className="content_signup">
+          <h2>
+            NEW HERE!! <br />
+            SIGN IN
+          </h2>
+          <form onSubmit={handleform} autoComplete="off">
+            <div className="inputbox_signup">
+              <FaEnvelope className="icon" />
+              <input
+                type="email"
+                placeholder="E-mail"
+                required
+                onChange={handleValue}
+                name="Email"
+              />
+            </div>
+            <div className="inputbox_signup">
+              <FaUser className="icon" />
+              <input
+                type="text"
+                placeholder="Username"
+                required
+                onChange={handleValue}
+                name="Username"
+              />
+            </div>
+            <div className="inputbox_signup">
+              <FaLock className="icon" />
+              <input
+                type={visible ? "text" : "password"}
+                placeholder="Password"
+                required
+                onChange={handleValue}
+                name="Password"
+              />
+              <span className="password_toggle_icon">
+                {visible ? (
+                  <FaEyeSlash onClick={toggle} />
+                ) : (
+                  <FaEye onClick={toggle} />
+                )}
+              </span>
+            </div>
+
+            <div className="inputbox_signup">
+              <input type="submit" value="Sign-in" />
+            </div>
+            <a href="">
+              <div>{<CustomButton />}</div>
+            </a>
+          </form>
         </div>
-        <Link to={"/login"} className="btns_signup login">
-          Login
-        </Link>
       </div>
-      <div className="aboutus_signup">
-        <img src={signuppik} className="login_image_signup" />
-      </div>
+      <Link to={"/login"} className="btns_signup login">
+        Login
+      </Link>
     </div>
-  );
+    <div className="aboutus_signup">
+      <img src={signuppik} className="login_image_signup" />
+    </div>
+  </div>
+);
 }
 
 export default Signup;
