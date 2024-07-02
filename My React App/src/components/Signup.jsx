@@ -6,14 +6,12 @@ import { FaEnvelope, FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useGoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
 
-
 function Signup() {
   const [visible, setVisiblity] = useState(false);
 
   const toggle = () => {
     setVisiblity(!visible);
-
-  }
+  };
 
   // getting values inserted by the user in signup page
   const [form, Setform] = useState({});
@@ -22,11 +20,10 @@ function Signup() {
     // console.log(e.target.value,e.target.name)
     Setform({
       ...form,
-      [e.target.name]: e.target.value
-    })
+      [e.target.name]: e.target.value,
+    });
     // console.log(JSON.stringify(form))
-
-  }
+  };
 
   // getting all the values as js object on clicking submit button
   const handleform = async (e) => {
@@ -42,16 +39,16 @@ function Signup() {
         'Content-Type':'application/json'
       }
 
-     })
+    });
 
-     console.log(await response.json());
+    console.log(await response.text());
+  };
 
     
 
     
-    
-      
-    }
+
+
 
     
 
@@ -66,25 +63,38 @@ function Signup() {
         <div className="drop_signup">
           <div className="content_signup">
             <h2>
-
               NEW HERE!! <br />
               SIGN IN
             </h2>
             <form onSubmit={handleform} autoComplete="off">
               <div className="inputbox_signup">
                 <FaEnvelope className="icon" />
-                <input type="email" placeholder="E-mail" required onChange={handleValue} name="Email" />
+                <input
+                  type="email"
+                  placeholder="E-mail"
+                  required
+                  onChange={handleValue}
+                  name="Email"
+                />
               </div>
               <div className="inputbox_signup">
                 <FaUser className="icon" />
-                <input type="text" placeholder="Username" required  onChange={handleValue} name="Username" />
+                <input
+                  type="text"
+                  placeholder="Username"
+                  required
+                  onChange={handleValue}
+                  name="Username"
+                />
               </div>
               <div className="inputbox_signup">
                 <FaLock className="icon" />
                 <input
                   type={visible ? "text" : "password"}
-                  placeholder="Password" required
-                 onChange={handleValue} name="Password" 
+                  placeholder="Password"
+                  required
+                  onChange={handleValue}
+                  name="Password"
                 />
                 <span className="password_toggle_icon">
                   {visible ? (
@@ -104,7 +114,7 @@ function Signup() {
             </form>
           </div>
         </div>
-        <Link to={"/login"} className="btns_signup login">
+        <Link to={"/login"} className="btns_signup loginp">
           Login
         </Link>
       </div>
@@ -113,8 +123,8 @@ function Signup() {
       </div>
     </div>
   );
-
 }
+
 export default Signup;
 
 export const CustomButton = () => {
