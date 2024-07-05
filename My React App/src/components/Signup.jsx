@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { FaEnvelope, FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useGoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
+import Navbar from "./Navbar";
 
 function Signup() {
   const [visible, setVisiblity] = useState(false);
@@ -50,6 +51,8 @@ function Signup() {
 // console.log(form);
 
 return (
+  <>
+  <Navbar />
   <div className="signup_body">
     <div className="container_signup">
       <div className="drop_signup">
@@ -115,6 +118,7 @@ return (
       <img src={signuppik} className="login_image_signup" />
     </div>
   </div>
+  </>
 );
 }
 

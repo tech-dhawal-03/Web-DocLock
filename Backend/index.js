@@ -101,7 +101,7 @@ server.post('/login',async(req,res)=>{
 
     
     // //sending to frontend
-    // res.json(db_items);
+    res.send(req.body.log_username);
 })
 server.listen({port},()=>{
     console.log(`Server is running on port ${port}`)

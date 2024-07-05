@@ -7,6 +7,7 @@ import { FaUserCircle, FaLock } from "react-icons/fa";
 import { IoDocumentSharp } from "react-icons/io5";
 import { IoIosHelpCircle } from "react-icons/io";
 import { MdPrivacyTip } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 function CardHome() {
   return (
@@ -20,12 +21,15 @@ function CardHome() {
       </div>
 
       <div className="vertical_nav">
+      <Link to={"/logout-successful"}>
         <button className="logout">
           <div>
             <CiLogout className="logout_icon" />
           </div>
+
           <p>Logout</p>
         </button>
+        </Link>
         <div className="nav_content">
           <button>
             <span>
