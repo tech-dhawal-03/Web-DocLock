@@ -12,42 +12,33 @@ function Login() {
     setVisiblity(!visible);
   };
 
-  const [login, Setlogin] = useState({})
+  const [login, Setlogin] = useState({});
 
   const handleCred = (e) => {
-    console.log(e.target.value, e.target.name)
+    console.log(e.target.value, e.target.name);
 
     Setlogin({
       ...login,
-      [e.target.name]: e.target.value
-    })
-
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const authenticateLogin = async (e) => {
     e.preventDefault();
-    const navigate = useNavigate()
-    const response = await fetch('http://localhost:3000/login', {
-      method: 'POST',
+    const navigate = useNavigate();
+    const response = await fetch("http://localhost:3000/login", {
+      method: "POST",
       body: JSON.stringify(login),
       headers: {
-        'Content-Type': 'application/json'
-        
-      }
-      
-
-    })
+        "Content-Type": "application/json",
+      },
+    });
     const data_received = await response.text();
-    if(data_received)
-    {
-      
+    if (data_received) {
     }
-
-  }
+  };
   return (
-
     <>
-
       <Navbar />
       <div className="login_body">
         <div className="container">
@@ -60,14 +51,22 @@ function Login() {
               <form onSubmit={authenticateLogin} autoComplete="off">
                 <div className="inputbox">
                   <FaUser className="icon_login" />
-                  <input type="text" placeholder="Username" required name="log_username" onChange={handleCred} />
+                  <input
+                    type="text"
+                    placeholder="Username"
+                    required
+                    name="log_username"
+                    onChange={handleCred}
+                  />
                 </div>
                 <div className="inputbox">
                   <FaLock className="icon_login" />
                   <input
                     type={visible ? "text" : "password"}
                     placeholder="Password"
-                    required name='log_password' onChange={handleCred}
+                    required
+                    name="log_password"
+                    onChange={handleCred}
                   />
                   <span className="password_toggle_icon_login">
                     {visible ? (
@@ -77,13 +76,15 @@ function Login() {
                     )}
                   </span>
                 </div>
-                {/* <Link to={"/login-successful"} */}
-                <div className="inputbox">
-
-                  <input type="submit" value="Login" onClick={authenticateLogin} />
-                </div>
-                {/* </Link> */}
-
+                <Link to={"/login-successful"}>
+                  <div className="inputbox">
+                    <input
+                      type="submit"
+                      value="Login"
+                      // onClick={authenticateLogin}
+                    />
+                  </div>
+                </Link>
               </form>
             </div>
           </div>
