@@ -1,49 +1,115 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import loginpik from "../assets/loginpik.png";
 import "../all_css/login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import Navbar from "./Navbar";
+import axios from "../controllers/axios";
 
 function Login() {
+  const navigate = useNavigate();
   const [visible, setVisiblity] = useState(false);
 
   const toggle = () => {
     setVisiblity(!visible);
   };
 
-  const [login, Setlogin] = useState({})
+  const [username, Setusername] = useState({})
+  const [password, Setpassword] = useState({})
 
-  const handleCred = (e) => {
-    console.log(e.target.value, e.target.name)
+  
 
-    Setlogin({
-      ...login,
-      [e.target.name]: e.target.value
-    })
+  
 
-  }
+    // login = JSON.stringify(login);
 
+    
+
+  
+
+  
   const authenticateLogin = async (e) => {
     e.preventDefault();
-    const navigate = useNavigate()
-    const response = await fetch('http://localhost:3000/login', {
-      method: 'POST',
-      body: JSON.stringify(login),
-      headers: {
-        'Content-Type': 'application/json'
+    // console.log(username);
+    // console.log(password)
+    // const navigate = useNavigate()
+
+
+    // console.log("Please enter valid Username & Password")
+
+    let err = 0;
+    
+  
+
+  
+    
+    try
+    {
+       const result = await axios.post("/login",{username,password})
         
+        if(result)   
+        
+        {
+          console.log(result.data)
+        navigate('login-successful')
+        err = 1;
+        // login-successful
+        }
+       
       }
       
-
-    })
-    const data_received = await response.text();
-    if(data_received)
-    {
-      
+       
+    catch(Error){
+      console.log(Error)
     }
 
-  }
+
+
+
+    if(err === 0)
+    {
+      console.log("Invalid");
+    }
+
+    
+    
+  
+
+
+    }
+
+   
+
+
+    
+
+    
+
+  
+
+
+  useEffect(()=>{
+    authenticateLogin();
+
+  },[]);
+  
+    
+    // using fetch api
+    // const response = await fetch('http://localhost:3000/login', {
+    //   method: 'POST',
+    //   body: JSON.stringify(login),
+    //   headers: {
+    //     'Content-Type': 'application/json'
+        
+    //   }
+      
+
+    // })
+    // const data_received = await response.text();
+  
+
+
+  
   return (
 
     <>
@@ -60,14 +126,14 @@ function Login() {
               <form onSubmit={authenticateLogin} autoComplete="off">
                 <div className="inputbox">
                   <FaUser className="icon_login" />
-                  <input type="text" placeholder="Username" required name="log_username" onChange={handleCred} />
+                  <input type="text" placeholder="Username" required  onChange={(e) => Setusername(e.target.value)}/>
                 </div>
                 <div className="inputbox">
                   <FaLock className="icon_login" />
                   <input
                     type={visible ? "text" : "password"}
                     placeholder="Password"
-                    required name='log_password' onChange={handleCred}
+                    required  onChange={(e)=>Setpassword(e.target.value)}
                   />
                   <span className="password_toggle_icon_login">
                     {visible ? (

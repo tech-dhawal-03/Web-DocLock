@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "./components/Navbar";
 import Hero from "./components/Hero_Page";
 import "./index.css";
 import Login from "./components/Login";
@@ -17,7 +16,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Error />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login-successful" element={<CardHome/>} />
+        <Route path="login/login-successful" element={<CardHome/>} />
         <Route path="/logout-successful" element={<Hero/>} />
         
       </Routes>
