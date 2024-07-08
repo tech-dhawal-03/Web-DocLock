@@ -18,6 +18,8 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="login/login-successful" element={<CardHome/>} />
         <Route path="/logout-successful" element={<Hero/>} />
+        <Route path="login/login-successful" element={<CardHome/>} />
+
         
       </Routes>
     </>

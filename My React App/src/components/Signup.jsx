@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import signuppik from "../assets/signuppik.png";
 import "../all_css/signup.css";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { FaEnvelope, FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useGoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
 import Navbar from "./Navbar";
 
+
+
+
 function Signup() {
+  const navigate = useNavigate();
   const [visible, setVisiblity] = useState(false);
 
   const toggle = () => {
@@ -31,17 +35,31 @@ function Signup() {
     e.preventDefault();
 
     // sending data to backend
+    let response;
+    
 
-
-    const response = await fetch('http://localhost:3000/signup', {
+    try{
+      response = await fetch('http://localhost:3000/signup', {
       method: 'POST',
       body: JSON.stringify(form),
       headers: {
         'Content-Type': 'application/json'
       }
     })
-    console.log(await response.json())
+  }catch(err)
+  {
+    console.log(err);
+  }
 
+    
+
+  console.log(await response.text());
+
+    // if(response)
+    // {
+    // console.log(await response.text());
+    // navigate("/login")
+    // }
 
     // console.log(await response.text());
     // console.log(await response.json());

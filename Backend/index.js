@@ -52,30 +52,76 @@ server.use(bodyParser.json());
 
 // creating database
 server.post("/signup", async (req, res) => {
-  // en_ denotes encrypted
-  const en_email = encrypt.hashSync(req.body.Email, saltRounds)
-  // const en_username = encrypt.hashSync(req.body.Username,saltRounds)
-  const en_password = encrypt.hashSync(req.body.Password, saltRounds)
+
+  let existing_username;
+  let existing_email;
+
+
+  try {
+    existing_username = await User.findOne({
+      username: req.body.Username
+      
+    });
+  } catch (err) {
+    console.log(err);
+  }
+
+  try {
+    existing_email = await User.findOne({
+      email: req.body.Email
+      
+    });
+  } catch (err) {
+    console.log(err);
+  }
 
 
 
 
+  if (existing_username && existing_email) {
+   console.log("User already Exists");
+   res.send("User already exists")
+
+    
+  }
+
+  else if (existing_email || existing_username) {
+    console.log("Username/Email already taken");
+
+    // checking if user already exists in database
+  }
 
 
-  // creating object of mongodb class 'User'
-  let user = new User();
+
+  else {
 
 
-  user.email = en_email;
-  user.username = req.body.Username;
-  user.password = en_password;
-  // save function
-  const doc = await user.save();
-  console.log("Registered Successfully")
+    // en_ denotes encrypted
+    // const en_email = encrypt.hashSync(req.body.Email, saltRounds)
+    // // const en_username = encrypt.hashSync(req.body.Username,saltRounds)
+    const en_password = encrypt.hashSync(req.body.Password, saltRounds)
 
-  console.log(doc);
-  res.json(doc);
 
+
+    let doc;
+
+    try {
+      // creating object of mongodb class 'User'
+      let user = new User();
+
+      user.email = req.body.Email;
+      user.username = req.body.Username;
+      user.password = en_password;
+      // save function
+      doc = await user.save();
+    } catch (err) {
+      console.log(err);
+    }
+
+    console.log("Registered Successfully")
+    console.log(doc);
+    res.send("Registered Successfully")
+  }
 })
 
 
@@ -87,25 +133,24 @@ server.post('/login', async (req, res) => {
 
   // empty string has length = 2
   let db_item;
-  
-  if(user.length > 2 && pass.length > 2) 
-  {
 
-    try{
-    db_item = await User.findOne({
+  if (user.length > 2 && pass.length > 2) {
 
-      username: req.body.username
+    try {
+      db_item = await User.findOne({
 
-    });
-  }catch(err){
-    console.log(err);
-  }
+        username: req.body.username
+
+      });
+    } catch (err) {
+      console.log(err);
+    }
 
     let match;
 
-    if(db_item){
+    if (db_item) {
 
-    match = encrypt.compareSync(req.body.password, db_item.password)
+      match = encrypt.compareSync(req.body.password, db_item.password)
 
     }
 
@@ -116,8 +161,8 @@ server.post('/login', async (req, res) => {
 
     else {
       console.log("Invalid Username or Password")
-      
-      
+
+
 
     }
 
@@ -128,9 +173,9 @@ server.post('/login', async (req, res) => {
   else {
     console.log("Input Fields are empty")
     res.sendStatus(401);
-    
 
-  
+
+
 
   }
 }
