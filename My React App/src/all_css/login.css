@@ -6,12 +6,12 @@
   align-items: center;
   height: 90vh;
   border-radius: 30px;
-  background: linear-gradient(90deg,#fff,#cf10ff);;
-  box-shadow: 5px 5px 20px #121212,inset 5px 5px 10px #fefefe;
+  background: linear-gradient(90deg, #fff, #cf10ff);
+  box-shadow: 5px 5px 20px #121212, inset 5px 5px 10px #fefefe;
 }
 .container {
   position: relative;
-  left: 150px;
+  left: 12vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,8 +87,7 @@
   justify-content: start;
   box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.2),
     inset -2px -5px 10px rgba(255, 255, 255, 1),
-    15px 15px 10px rgba(0, 0, 0, 0.1),
-    15px 10px 15px rgba(0, 0, 0, 0.1);
+    15px 15px 10px rgba(0, 0, 0, 0.1), 15px 10px 15px rgba(0, 0, 0, 0.1);
   border-radius: 25px;
 }
 .container .drop .content form .inputbox input {
@@ -111,8 +110,7 @@
   background: #cf10ff;
   width: 120px;
   box-shadow: inset 2px 5px 10px rgba(255, 255, 255, 0.6),
-    15px 15px 10px rgba(0, 0, 0, 0.1),
-    15px 10px 15px rgba(0, 0, 0, 0.1);
+    15px 15px 10px rgba(0, 0, 0, 0.1), 15px 10px 15px rgba(0, 0, 0, 0.1);
   transition: 0.5s;
 }
 .container .drop .content form .inputbox:last-child:hover {
@@ -141,8 +139,7 @@
   text-align: center;
   transition: 0.25s;
   box-shadow: inset 10px 10px 10px rgba(190, 1, 254, 0.1),
-    15px 25px 10px rgba(190, 1, 254, 0.1),
-    15px 20px 20px rgba(190, 1, 254, 0.1),
+    15px 25px 10px rgba(190, 1, 254, 0.1), 15px 20px 20px rgba(190, 1, 254, 0.1),
     inset -10px -10px 15px rgba(255, 255, 255, 0.5);
   border-radius: 44% 56% 65% 35% / 57% 58% 42% 43%;
 }
@@ -165,8 +162,7 @@
   background: #cf10ff;
   border-radius: 49% 51% 52% 48% / 63% 59% 41% 37%;
   box-shadow: inset 10px 10px 10px rgba(1, 180, 255, 0.1),
-    15px 25px 10px rgba(1, 180, 255, 0.1),
-    15px 20px 20px rgba(1, 180, 255, 0.1),
+    15px 25px 10px rgba(1, 180, 255, 0.1), 15px 20px 20px rgba(1, 180, 255, 0.1),
     inset -10px -10px 15px rgba(255, 255, 255, 0.5);
 }
 .btns.signup::before {
@@ -177,7 +173,7 @@
 .btns:hover {
   border-radius: 50%;
 }
-.aboutus{
+.aboutus {
   width: 50%;
   border-radius: 0 30px 30px 0;
   height: 100vh;
@@ -185,18 +181,118 @@
   align-items: center;
   justify-content: center;
 }
-.login_image{
-  width: 90%;
+.login_image {
+  width: 35rem;
+  position: absolute;
 }
-.icon_login{
+.icon_login {
   width: 50px;
   color: #cf10ff;
 }
-.password_toggle_icon_login{
+.password_toggle_icon_login {
   position: absolute;
   top: 12px;
   right: 15px;
   z-index: 100;
   color: #cf10ff;
   cursor: pointer;
+}
+
+/* responsive css */
+
+@media (max-width: 1300px) {
+  .aboutus {
+    width: 30%;
+  }
+  .login_image {
+    width: 25rem;
+  }
+}
+@media (max-width: 1150px) {
+  .aboutus {
+    display: none;
+  }
+  .container {
+    left: 20vw;
+  }
+}
+@media (max-width: 860px) {
+  .container {
+    left: 12vw;
+  }
+}
+@media (max-width: 740px) {
+  .container .drop {
+    width: 380px;
+    height: 380px;
+  }
+  .container .drop .content h2 {
+    font-size: 1.2em;
+  }
+  .container .drop .content form .inputbox {
+    width: 250px;
+  }
+}
+@media (max-width: 650px) {
+  .btns {
+    right: -4vw;
+    bottom: -12vh;
+    width: 80px;
+    height: 80px;
+  }
+  .btns.signup {
+    bottom: -12vh;
+    left: 6vw;
+  }
+  .login_body {
+    background: linear-gradient(#fff, #cf10ff);
+  }
+}
+
+@media (max-width: 540px) {
+  .container .drop {
+    width: 300px;
+    height: 300px;
+    margin-top: -140px;
+  }
+  .container .drop::after,
+  .container .drop::before {
+    display: none;
+  }
+  .container .drop .content h2 {
+    font-size: 0.8em;
+  }
+  .container .drop .content form {
+    gap: 12px;
+  }
+  .container .drop .content form .inputbox {
+    width: 220px;
+  }
+  .container .drop .content form .inputbox input {
+    padding: 8px 10px;
+    font-size: 0.7em;
+  }
+  .btns {
+    right: 0vw;
+    bottom: -12vh;
+    width: 60px;
+    height: 60px;
+    font-size: 0.6em;
+  }
+  .btns::before {
+    display: none;
+  }
+  .btns.signup {
+    bottom: -10vh;
+    left: 4vw;
+  }
+}
+
+@media (max-width: 430px) {
+  .login_body {
+    margin: -30px 10px;
+  }
+  .container {
+    left: 5vw;
+  }
 }
