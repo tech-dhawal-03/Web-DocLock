@@ -2,6 +2,7 @@ import React from "react";
 import Img_1 from "../assets/locker.png";
 import Caraousel from "./Caraousel";
 import Navbar from "./Navbar";
+import Popup from "./Popup";
 
 
 
@@ -9,6 +10,7 @@ function Hero_Page() {
   return (
     <>
     <Navbar />
+    <Popup/>
       <div className="header">
         <img src={Img_1} width="105px" height="90px"></img>
         <br />
