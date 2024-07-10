@@ -55,6 +55,8 @@ server.post("/signup", async (req, res) => {
 
   let existing_username;
   let existing_email;
+  let send_msg;
+  let existing_user;
 
 
   try {
@@ -68,29 +70,40 @@ server.post("/signup", async (req, res) => {
 
   try {
     existing_email = await User.findOne({
-      email: req.body.Email
+      username: req.body.Email
       
     });
   } catch (err) {
     console.log(err);
   }
 
+  try {
 
-
-
-  if (existing_username && existing_email) {
-   console.log("User already Exists");
-   res.send("User already exists")
-
-    
+    existing_user = await User.findOne({
+      email: req.body.Email,
+      username : req.body.Username      
+    })
+  
+  } catch (err) {
+    console.log(err);
   }
 
-  else if (existing_email || existing_username) {
+  if(existing_user)
+  {
+    console.log("User Already Exists");
+    send_msg = "Error 101";
+    res.send(send_msg);
+  }
+
+  else if(existing_username || existing_email)
+  {
     console.log("Username/Email already taken");
-
-    // checking if user already exists in database
+    send_msg = "Error 102";
+    res.send(send_msg);
   }
 
+  
+  
 
 
   else {
@@ -118,9 +131,10 @@ server.post("/signup", async (req, res) => {
       console.log(err);
     }
 
-    console.log("Registered Successfully")
+    console.log("Go 401")
+    send_msg = "Registered Successfully";
     console.log(doc);
-    res.send("Registered Successfully")
+    res.send(send_msg)
   }
 })
 

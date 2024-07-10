@@ -1,0 +1,96 @@
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* .Toastify .Toastify__toast-container .Toastify__progress-bar .Toastify__toast .Toastify__toast-body */
+
+
+.Toastify .Toastify__toast-container
+{
+  top: 100px;
+  margin-right: 20px;
+  border-radius: 50px 0 0 50px;
+  
+  
+
+}
+
+
+.toastBody {
+  top:100px;
+  /* color: black; */
+  /* background-color: yellow; */
+  font-size: 20px;
+  /* color: black; */
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  border-radius: 50px 0 0 50px;
+  color: white;
+  
+ 
+ 
+
+}
+
+.popup_box h2 {
+  position: absolute;
+  right: 30px;
+  font-size: 1em;
+  color: black;
+  
+}
+
+.tick {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  left: 25px;
+}
+
+.tick_img {
+  color: #ff3300;
+  font-size: 25px;
+
+
+  animation: rotate 2s infinite ease-in-out;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(210px);
+  }
+
+  20% {
+    transform: translateX(10px);
+  }
+
+  80% {
+    transform: translateX(10px);
+  }
+
+  100% {
+    transform: translateX(210px);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: translateX(200px);
+  }
+
+  20% {
+    transform: translateX(0px);
+    transform: rotate(0deg);
+  }
+
+  70% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import Navbar from "./Navbar";
 import axios from "../controllers/axios";
+import { toast } from 'react-toastify';
 
 function Login() {
   const navigate = useNavigate();
@@ -17,17 +18,17 @@ function Login() {
   const [username, Setusername] = useState({})
   const [password, Setpassword] = useState({})
 
-  
 
-  
 
-    // login = JSON.stringify(login);
 
-    
 
-  
+  // login = JSON.stringify(login);
 
-  
+
+
+
+
+
   const authenticateLogin = async (e) => {
     e.preventDefault();
     // console.log(username);
@@ -38,82 +39,79 @@ function Login() {
     // console.log("Please enter valid Username & Password")
 
     let err = 0;
-    
-  
 
-  
-    
-    try
-    {
-       const result = await axios.post("/login",{username,password})
-        
-        if(result)   
-        
-        {
-          console.log(result.data)
+
+
+
+
+    try {
+      const result = await axios.post("/login", { username, password })
+
+      if (result) {
+        console.log(result.data)
+        toast.success("Login Successful !")
         navigate('login-successful')
         err = 1;
         // login-successful
-        }
-       
+
       }
-      
-       
-    catch(Error){
+
+    }
+
+
+    catch (Error) {
       console.log(Error)
     }
 
 
 
 
-    if(err === 0)
-    {
+    if (err === 0) {
       console.log("Invalid");
+      toast.error("Invalid Username or Password")
     }
 
-    
-    
-  
 
 
-    }
-
-   
 
 
-    
 
-    
-
-  
+  }
 
 
-  useEffect(()=>{
+
+
+
+
+
+
+
+
+
+  useEffect(() => {
     authenticateLogin();
 
-  },[]);
-  
-    
-    // using fetch api
-    // const response = await fetch('http://localhost:3000/login', {
-    //   method: 'POST',
-    //   body: JSON.stringify(login),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-        
-    //   }
-      
-
-    // })
-    // const data_received = await response.text();
-  
+  }, []);
 
 
-  
+  // using fetch api
+  // const response = await fetch('http://localhost:3000/login', {
+  //   method: 'POST',
+  //   body: JSON.stringify(login),
+  //   headers: {
+  //     'Content-Type': 'application/json'
+
+  //   }
+
+
+  // })
+  // const data_received = await response.text();
+
+
+
+
   return (
-
     <>
-
       <Navbar />
       <div className="login_body">
         <div className="container">
@@ -126,14 +124,14 @@ function Login() {
               <form onSubmit={authenticateLogin} autoComplete="off">
                 <div className="inputbox">
                   <FaUser className="icon_login" />
-                  <input type="text" placeholder="Username" required  onChange={(e) => Setusername(e.target.value)}/>
+                  <input type="text" placeholder="Username" required onChange={(e) => Setusername(e.target.value)} />
                 </div>
                 <div className="inputbox">
                   <FaLock className="icon_login" />
                   <input
                     type={visible ? "text" : "password"}
                     placeholder="Password"
-                    required  onChange={(e)=>Setpassword(e.target.value)}
+                    required onChange={(e) => Setpassword(e.target.value)}
                   />
                   <span className="password_toggle_icon_login">
                     {visible ? (
@@ -143,13 +141,15 @@ function Login() {
                     )}
                   </span>
                 </div>
-                {/* <Link to={"/login-successful"} */}
-                <div className="inputbox">
-
-                  <input type="submit" value="Login" onClick={authenticateLogin} />
-                </div>
-                {/* </Link> */}
-
+                <Link to={"/login-successful"}>
+                  <div className="inputbox">
+                    <input
+                      type="submit"
+                      value="Login"
+                    onClick={authenticateLogin}
+                    />
+                  </div>
+                </Link>
               </form>
             </div>
           </div>

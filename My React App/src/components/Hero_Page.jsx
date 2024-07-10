@@ -5,10 +5,12 @@ import Navbar from "./Navbar";
 
 
 
+
 function Hero_Page() {
   return (
     <>
     <Navbar />
+    {/* <Popup/> */}
       <div className="header">
         <img src={Img_1} width="105px" height="90px"></img>
         <br />
