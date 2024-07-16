@@ -10,12 +10,20 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+
   <React.StrictMode>
     <BrowserRouter>
       <GoogleOAuthProvider clientId="457050949387-k23ft8nrfg5vd0g8ktlh3d69r6ok086i.apps.googleusercontent.com">
-        <App />
+
+          
+            <App />
+          
+      
+
         <ToastContainer
           progressClassName="toastProgress"
           bodyClassName="toastBody"

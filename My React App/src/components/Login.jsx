@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import loginpik from "../assets/loginpik.png";
 import "../all_css/login.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,10 +6,28 @@ import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import Navbar from "./Navbar";
 import axios from "../controllers/axios";
 import { toast } from 'react-toastify';
+import CardHome from "./CardHome";
+import Context from "../context/Context";
 
-function Login() {
+// import ReactDOM from "react-dom";
+
+
+// export 
+
+
+function Login()
+
+{
+  const pass = useContext(Context);
+  
+
+
+  
+  
   const navigate = useNavigate();
   const [visible, setVisiblity] = useState(false);
+
+  
 
   const toggle = () => {
     setVisiblity(!visible);
@@ -41,29 +59,26 @@ function Login() {
     let err = 0;
 
 
-
-
-
     try {
       const result = await axios.post("/login", { username, password })
 
       if (result) {
-        console.log(result.data)
+        
+        pass.setUser_data(result.data);
+        console.log(pass.user_data);
+        
         toast.success("Login Successful !")
-        navigate('login-successful')
+        navigate("/login/login-successful")
+
         err = 1;
         // login-successful
-
       }
 
     }
 
-
     catch (Error) {
       console.log(Error)
     }
-
-
 
 
     if (err === 0) {
@@ -72,19 +87,7 @@ function Login() {
     }
 
 
-
-
-
-
   }
-
-
-
-
-
-
-
-
 
 
 
@@ -113,6 +116,9 @@ function Login() {
   return (
     <>
       <Navbar />
+      
+
+
       <div className="login_body">
         <div className="container">
           <div className="drop">
@@ -146,7 +152,7 @@ function Login() {
                     <input
                       type="submit"
                       value="Login"
-                    onClick={authenticateLogin}
+                      onClick={authenticateLogin}
                     />
                   </div>
                 </Link>
@@ -164,6 +170,10 @@ function Login() {
           <img src={loginpik} className="login_image" />
         </div>
       </div>
+
+
+     
+
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import {  React, useContext } from "react";
 import logo from "../assets/logo1.png";
 import document from "../assets/document.png";
 import "../all_css/cardhome.css";
@@ -6,18 +6,24 @@ import { CiLogout } from "react-icons/ci";
 import { FaUserCircle, FaLock } from "react-icons/fa";
 import { IoDocumentSharp } from "react-icons/io5";
 import { IoIosHelpCircle } from "react-icons/io";
-import { MdPrivacyTip,MdInfoOutline } from "react-icons/md";
+import { MdPrivacyTip, MdInfoOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
+import Context from "../context/Context";
+
 
 function CardHome() {
+  const pass = useContext(Context);
+
+  
   return (
     <>
+
       <div className="cardhome_container">
         <div className="upper_bar">
           <img src={logo} alt="" />
           <div className="welcome">
             <h1>Welcome</h1>
-            <h3>Email</h3>
+            <h3>{pass.user_data}</h3>
           </div>
         </div>
 
@@ -81,7 +87,7 @@ function CardHome() {
 
               {/* <!-- Card info --> */}
               <div class="info">
-                <MdInfoOutline class="info__icon"/>
+                <MdInfoOutline class="info__icon" />
 
                 <div class="info__border">
                   <div class="info__perfil">
@@ -104,6 +110,7 @@ function CardHome() {
           </div>
         </div>
       </div>
+      
     </>
   );
 }

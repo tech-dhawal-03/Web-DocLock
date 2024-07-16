@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import Img_1 from "../assets/locker.png";
 import Caraousel from "./Caraousel";
 import Navbar from "./Navbar";
+import Context from "../context/Context";
+
 
 
 
 
 function Hero_Page() {
+  
+ 
   return (
     <>
     <Navbar />
@@ -17,6 +21,7 @@ function Hero_Page() {
         Securely Save, <br /> Organize & Protect <br />
         <span className="subline">
           Your Digital Vault for Documents & Passwords
+         
         </span>
       </div>
 
