@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../assets/logo1.png";
 import document from "../assets/document.png";
-import "../all_css/cardhome.css";
+import "../all_css/carddocument.css";
 import { CiLogout } from "react-icons/ci";
 import { FaUserCircle, FaLock } from "react-icons/fa";
 import { IoDocumentSharp } from "react-icons/io5";
@@ -9,7 +9,7 @@ import { IoIosHelpCircle } from "react-icons/io";
 import { MdInfoOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-function CardHome() {
+function CardDocument() {
   return (
     <>
       <div className="cardhome_container">
@@ -34,7 +34,7 @@ function CardHome() {
             </Link>
             <div className="nav_content">
               <Link to={"/cardprofile"} className="widthfull">
-                <button className="highlight">
+                <button className="buttons">
                   <span>
                     <FaUserCircle className="vertical_nav_icon" />
                   </span>
@@ -43,7 +43,7 @@ function CardHome() {
               </Link>
               <Link to={"/carddocument"} className="widthfull">
                 {" "}
-                <button className="buttons">
+                <button className="highlight">
                   <span>
                     <IoDocumentSharp className="vertical_nav_icon" />
                   </span>
@@ -69,39 +69,20 @@ function CardHome() {
             </div>
             <img src={document} className="document_image" alt="" />
           </div>
-
-          <div className="card_container">
-            {/* <!-- Card --> */}
-            <div class="card">
-              <div class="card__border">
-                <div class="card__perfil">
-                  <img src={logo} alt="" class="card__img" />
-                </div>
-              </div>
-
-              <h3 class="card__name">DOC LOCKER</h3>
-              <span class="card__profession">LOCK DOCUMENTS</span>
-
-              {/* <!-- Card info --> */}
-              <div class="info">
-                <MdInfoOutline class="info__icon" />
-
-                <div class="info__border">
-                  <div class="info__perfil">
-                    <img src={logo} alt="" class="info__img" />
-                  </div>
-                </div>
-
-                <div class="info__data">
-                  <h3 class="info__name">Doc Locker</h3>
-                  <span class="info__profession">Online Vault</span>
-                  <span class="info_desc">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nobis quis atque eaque velit vel aperiam vitae. lorem12
-                  </span>
-                </div>
-              </div>
-            </div>
+          <div className="document_container">
+            <div className="doc d1">erergeg</div>
+            <div className="doc d2">ergerg</div>
+            <div className="doc d3">ergerg</div>
+            <div className="doc d4">egerg</div>
+            <div className="doc">eqrge4e</div>
+            <div className="doc">uji5u756</div>
+            <div className="doc">5eu5uj</div>
+            <div className="doc">rthrthjr</div>
+            <div className="doc">yuj567ikj</div>
+            <div className="doc">uji5u756</div>
+            <div className="doc">5eu5uj</div>
+            <div className="doc">rthrthjr</div>
+            <div className="doc">yuj567ikj</div>
           </div>
         </div>
       </div>
@@ -109,4 +90,4 @@ function CardHome() {
   );
 }
 
-export default CardHome;
+export default CardDocument;

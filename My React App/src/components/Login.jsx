@@ -76,7 +76,7 @@ function Login() {
                     )}
                   </span>
                 </div>
-                <Link to={"/login-successful"}>
+                <Link to={"/cardprofile"}>
                   <div className="inputbox">
                     <input
                       type="submit"
