@@ -139,7 +139,7 @@
   gap: 1.5vh;
   transition: 0.5s;
 }
-.nav_content .widthfull{
+.nav_content .widthfull {
   width: 100%;
 }
 
@@ -163,7 +163,7 @@
   font-weight: 600;
   font-style: normal;
 }
-.nav_content .buttons{
+.nav_content .buttons {
   padding: 0.2vh;
   height: 5vh;
   cursor: pointer;
@@ -180,7 +180,7 @@
   font-style: normal;
   color: #111;
 }
-button span{
+button span {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -190,7 +190,7 @@ button span{
   transition: 0.5s;
   padding: 0 1vh;
 }
-.nav_content .buttons:hover .vertical_nav_icon{
+.nav_content .buttons:hover .vertical_nav_icon {
   color: #cf10ff;
 }
 .nav_content .buttons:hover {
@@ -201,151 +201,166 @@ button span{
   width: 30vh;
 }
 
-/* card css */
+/* //profile card css */
 
-/*=============== BASE ===============*/
-
-ul {
-  list-style: none;
-}
-
-a {
-  text-decoration: none;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/*=============== CARD ===============*/
-.card_container {
-  width: 100%;
-  display: grid;
-  place-items: center;
-}
-.card {
+.profile-container {
   position: relative;
-  width: 380px;
-  height: 380px;
-  top: 45%;
-  right: -8%;
-  background: var(--gradient-color);
-  border-radius: 2rem 2rem 15rem 15rem;
-  padding: 3rem 1.5rem 1rem;
-  text-align: center;
-  box-shadow: 6px 6px 10px #671a7e, inset -2px -2px 5px #fff,
-    inset 2px 2px 5px #fff, -2px -2px 2px #671a7e;
-}
-.card__img {
-  width: 110px;
-}
-.card__border {
-  width: 154px;
-  height: 154px;
-  background-color: var(--first-color-light);
-  border-radius: 50%;
-  margin: 0 auto 2rem;
-  display: grid;
-  place-items: center;
-}
-.card__perfil {
-  width: 134px;
-  height: 134px;
-  background-color: var(--first-color-lighten);
-  border-radius: 50%;
-  overflow: hidden;
+  padding: 2vh;
+  left: 20vw;
+  top: 18vh;
+  width: 70rem;
+  height: 34rem;
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2vw;
+  justify-content: space-evenly;
+  background: #f9e5ff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px #111;
 }
-.card__name,
-.card__profession {
-  color: var(--white-color);
-}
-.card__name {
-  font-size: var(--h1-font-size);
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-.card__profession {
-  font-size: var(--normal-font-size);
-  font-weight: 500;
+ 
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 25vw;
+  width: 100%;
+  height: 15vh;
+  background: linear-gradient(135deg, #ffdd00 10%, #c61199 100%);
+  padding: 40px;
+  padding-left: 10vw;
+  border-radius: 15px 15px 0 0;
 }
 
-/*=============== CARD INFO ===============*/
-.info {
-  position: absolute;
-  top: -1px;
+.profile-image {
+  position: relative;
+  width: 9vw;
+  top: 1vh;
+  height: 9vw;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.profile-image img {
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  border: 3px solid #cf10ff;
+}
+.profile-header h1{
+  color: #fff;
+}
+
+.profile-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6vh;
+}
+.text_input{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3vw;
+}
+.detail-item {
+  width: 20vw;
+  text-align: left;
+}
+
+.profile-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 2vh;
+  position: relative;
+  width: 20vw;
+}
+.profile_input{
+  background: rgb(169, 227, 246);
+} 
+
+.modal {
+  position: fixed;
+  top: 0;
   left: 0;
-  width: 380px;
-  height: 380px;
-  background-color: var(--white-color);
-  padding: 3rem 1.5rem 1rem;
-  border-radius: 2rem 2rem 15rem 15rem;
-  clip-path: circle(22px at 383px 43px);
-  transition: clip-path 0.4s ease-in-out;
-}
-.info__icon {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  font-size: 2rem;
-  color: var(--first-color);
-  display: inline-flex;
-  padding: 0.25rem;
-  cursor: pointer;
-  transition: opacity 0.3s;
-}
-.info__img {
-  width: 60px;
-}
-.info__border {
-  width: 90px;
-  height: 90px;
-  background-color: var(--first-color-light);
-  border-radius: 50%;
-  margin: 0 auto 1rem;
-  display: grid;
-  place-items: center;
-  transform: translateX(-3rem);
-  transition: transform 0.8s;
-}
-.info__perfil {
-  width: 80px;
-  height: 80px;
-  background-color: var(--first-color-lighten);
-  border-radius: 50%;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background: #00000062;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-}
-.info__data {
-  display: grid;
-  row-gap: 0.25rem;
-  margin-bottom: 1rem;
-  transform: translateX(-4rem);
-  transition: transform 1s;
-}
-.info__name {
-  font-size: var(--h2-font-size);
-  color: var(--title-color);
-}
-.info__profession,
-.info_desc {
-  font-size: var(--normal-font-size);
-  color: var(--body-color);
+  align-items: center;
 }
 
-/* Card info animation */
-.info:hover {
-  clip-path: circle(75%);
+.modal-content {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 600px;
+  animation: slideIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.info:hover .info__icon {
-  opacity: 0;
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
-.info:hover .info__border,
-.info:hover .info__data {
-  transform: translateX(0);
+
+.modal-content h2 {
+  margin-top: 0;
 }
+
+.profile-edit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2vh;
+}
+
+.profile-image-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.profile-image-edit img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #ddd;
+  margin-bottom: 10px;
+}
+.profile-image-edit input{
+  display: none;
+}
+.img-upload{
+  border: 1px solid #000000;
+  border-radius: 10px;
+  display: block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 2vw;
+}
+
