@@ -51,12 +51,13 @@ function CardHome() {
 
   return (
     <>
+
       <div className="cardhome_container">
         <div className="upper_bar">
-          <img src={logo} alt="" />
+          <img src={logo} alt="logo" />
           <div className="welcome">
             <h1>Welcome</h1>
-            <h3>Email</h3>
+            <h3>{pass.user_data}</h3>
           </div>
         </div>
 
@@ -89,7 +90,7 @@ function CardHome() {
                   <p>Documents</p>{" "}
                 </button>
               </Link>
-              <Link to={"/cardpassword"} className="widthfull">
+              <Link to={`/card-add-passwords/${pass.user_id}`} className="widthfull">
                 <button className="buttons">
                   <span>
                     <FaLock className="vertical_nav_icon" />
@@ -284,6 +285,7 @@ function CardHome() {
           </div>
         </div>
       </div>
+
     </>
   );
 }

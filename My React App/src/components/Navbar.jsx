@@ -2,7 +2,11 @@ import React from "react";
 import Img_3 from "../assets/logo1.png";
 import { Link } from "react-router-dom";
 
+
+
 function Navbar() {
+
+  
   return (
     <>
       <div className="container_navbar">

@@ -50,7 +50,7 @@ function CardDocument() {
                   <p>Documents</p>{" "}
                 </button>
               </Link>
-              <Link to={"/cardpassword"} className="widthfull">
+              <Link to={"/card-add-passwords"} className="widthfull">
                 <button className="buttons">
                   <span>
                     <FaLock className="vertical_nav_icon" />

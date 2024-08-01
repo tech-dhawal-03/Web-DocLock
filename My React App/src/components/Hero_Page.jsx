@@ -1,22 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import Img_1 from "../assets/locker.png";
 import Caraousel from "./Caraousel";
 import Navbar from "./Navbar";
-import Popup from "./Popup";
+import Context from "../context/Context";
+
+
 
 
 
 function Hero_Page() {
+  
+ 
   return (
     <>
     <Navbar />
-    <Popup/>
+    {/* <Popup/> */}
       <div className="header">
         <img src={Img_1} width="105px" height="90px"></img>
         <br />
         Securely Save, <br /> Organize & Protect <br />
         <span className="subline">
           Your Digital Vault for Documents & Passwords
+         
         </span>
       </div>
 
