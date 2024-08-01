@@ -78,14 +78,14 @@
 }
 
 body {
-  background: #ffffff;
+  background:white;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
 }
 ::-webkit-scrollbar {
   width: 8px;
-  background: #c5c0c0;
+  background:white;
 }
 ::-webkit-scrollbar-thumb{
   box-shadow:inset 2px 2px 3px   #cf10ff;

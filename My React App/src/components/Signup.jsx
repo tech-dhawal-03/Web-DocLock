@@ -39,8 +39,9 @@ function Signup() {
     Setform({
       ...form,
       [e.target.name]: e.target.value,
+     
     });
-    // console.log(JSON.stringify(form))
+    console.log(form);
   };
 
   // getting all the values as js object on clicking submit button
