@@ -13,9 +13,8 @@ import Context from "../context/Context";
 import { useContext } from "react";
 
 function CardHome() {
-
   const pass = useContext(Context);
-  
+
   const [editing, setEditing] = useState(false);
   const [profile, setProfile] = useState({
     firstName: "",
@@ -56,7 +55,6 @@ function CardHome() {
 
   return (
     <>
-
       <div className="cardhome_container">
         <div className="upper_bar">
           <img src={logo} alt="logo" />
@@ -95,7 +93,10 @@ function CardHome() {
                   <p>Documents</p>{" "}
                 </button>
               </Link>
-              <Link to={`/card-add-passwords/${pass.user_id}`} className="widthfull">
+              <Link
+                to={`/card-add-passwords/${pass.user_id}`}
+                className="widthfull"
+              >
                 <button className="buttons">
                   <span>
                     <FaLock className="vertical_nav_icon" />
@@ -125,37 +126,31 @@ function CardHome() {
             <div className="profile-details">
               <div className="text_input">
                 <div className="detail-item">
-                  <TextField
-                    className="profile_input"
-                    label="First Name"
+                  <label htmlFor="firstName">First Name</label>
+                  <input
                     type="text"
-                    fullWidth
-                    variant="filled"
                     id="firstName"
+                    className="profile_input"
                     value={profile.firstName}
                     disabled
                   />
                 </div>
                 <div className="detail-item">
-                  <TextField
-                    className="profile_input"
-                    label="Last Name"
+                  <label htmlFor="lastName">Last Name</label>
+                  <input
                     type="text"
-                    variant="filled"
-                    fullWidth
                     id="lastName"
+                    className="profile_input"
                     value={profile.lastName}
                     disabled
                   />
                 </div>
                 <div className="detail-item">
-                  <TextField
-                    className="profile_input"
-                    label="Contacts"
+                  <label htmlFor="contacts">Contacts</label>
+                  <input
                     type="number"
-                    fullWidth
-                    variant="filled"
                     id="contacts"
+                    className="profile_input"
                     value={profile.contacts}
                     disabled
                   />
@@ -163,42 +158,37 @@ function CardHome() {
               </div>
               <div className="text_input">
                 <div className="detail-item">
-                  <TextField
-                    className="profile_input"
-                    label="Email"
+                  <label htmlFor="email">Email</label>
+                  <input
                     type="email"
-                    fullWidth
-                    variant="filled"
                     id="email"
+                    className="profile_input"
                     value={profile.email}
                     disabled
                   />
                 </div>
                 <div className="detail-item">
-                  <TextField
-                    className="profile_input"
-                    label="Username"
+                  <label htmlFor="username">Username</label>
+                  <input
                     type="text"
-                    fullWidth
-                    variant="filled"
                     id="username"
+                    className="profile_input"
                     value={profile.username}
                     disabled
                   />
                 </div>
                 <div className="detail-item">
-                  <TextField
-                    className="profile_input"
-                    label="Password"
+                  <label htmlFor="password">Password</label>
+                  <input
                     type="password"
-                    fullWidth
-                    variant="filled"
                     id="password"
+                    className="profile_input"
                     value={profile.password}
                     disabled
                   />
                 </div>
               </div>
+
               <div className="profile-actions">
                 <Button variant="contained" onClick={handleEdit}>
                   Update Details
@@ -224,7 +214,6 @@ function CardHome() {
                           title="hello"
                           onChange={handleImageChange}
                         />
-                        
                       </div>
                       <div className="detail-item">
                         <TextField
@@ -279,8 +268,12 @@ function CardHome() {
                         ></TextField>
                       </div>
                       <div className="modal-actions">
-                        <Button variant="contained" onClick={handleSave}>Save</Button>
-                        <Button variant="contained" onClick={handleCancel}>Cancel</Button>
+                        <Button variant="contained" onClick={handleSave}>
+                          Save
+                        </Button>
+                        <Button variant="contained" onClick={handleCancel}>
+                          Cancel
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -290,7 +283,6 @@ function CardHome() {
           </div>
         </div>
       </div>
-
     </>
   );
 }

@@ -219,7 +219,7 @@ button span {
   border-radius: 20px;
   box-shadow: 0 10px 30px #111;
 }
- 
+
 .profile-header {
   display: flex;
   align-items: center;
@@ -251,7 +251,7 @@ button span {
   border-radius: 50%;
   border: 3px solid #cf10ff;
 }
-.profile-header h1{
+.profile-header h1 {
   color: #fff;
 }
 
@@ -262,28 +262,39 @@ button span {
   flex-direction: column;
   gap: 6vh;
 }
-.text_input{
+.text_input {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 3vw;
 }
 .detail-item {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
   width: 20vw;
   text-align: left;
+}
+
+.profile_input {
+  margin-top: 1vh;
+  width: 90%;
+  height: 5vh;
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: #000;
+ font-size:larger ;
+  box-shadow: 3px 3px 5px #111, inset 3px 3px 5px #fff;
 }
 
 .profile-actions {
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 2vh;
   position: relative;
   width: 20vw;
 }
-.profile_input{
-  background: rgb(169, 227, 246);
-} 
 
 .modal {
   position: fixed;
@@ -346,10 +357,10 @@ button span {
   border: 3px solid #ddd;
   margin-bottom: 10px;
 }
-.profile-image-edit input{
+.profile-image-edit input {
   display: none;
 }
-.img-upload{
+.img-upload {
   border: 1px solid #000000;
   border-radius: 10px;
   display: block;
@@ -363,4 +374,3 @@ button span {
   margin-top: 20px;
   gap: 2vw;
 }
-
