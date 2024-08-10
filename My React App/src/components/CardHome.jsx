@@ -9,8 +9,13 @@ import { FaUserCircle, FaLock } from "react-icons/fa";
 import { IoDocumentSharp } from "react-icons/io5";
 import { IoIosHelpCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
+import Context from "../context/Context";
+import { useContext } from "react";
 
 function CardHome() {
+
+  const pass = useContext(Context);
+  
   const [editing, setEditing] = useState(false);
   const [profile, setProfile] = useState({
     firstName: "",
