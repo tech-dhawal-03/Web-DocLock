@@ -3,25 +3,25 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
-
-
-
+import Profile from "./models/Profile.js";
+import User from "./models/User.js";
+import Password from "./models/Password.js";
+import { ObjectId } from "mongodb";
 
 const server = express();
 const port = 3000;
 let user;
 let db_item;
-
-
-
-
-
 const encrypt = bcrypt;
 const saltRounds = 10;
+
 
 //connecting mongodb
 const db = mongoose;
 main().catch(err => console.log(err));
+
+
+
 
 async function main() {
   await db.connect('mongodb://127.0.0.1:27017/docs');
@@ -30,49 +30,12 @@ async function main() {
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
 
-// creating schema
-const userSchema = new db.Schema({
-
-  email: String,
-  username: String,
-  password: String,
-  linked_Pass: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Password'
-  }]
-},
-  {
-    timestamps: true
-  });
-
-const userSchema_2 = new db.Schema(
-  {
-    // user_id: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'User'
-    // },
-    website: String,
-    username: String,
-    password: String
-  },
-  {
-    timestamps: true
-  }
-)
-
-//creating model
-const User = db.model('User', userSchema);
-const Password = db.model('Password', userSchema_2);
-// User will act as a class
-
-
 
 server.use(cors());
 server.use(bodyParser.json());
 
 // data from frontend is received as --> req
 // data to be sent from backend is sent as --> res
-
 //encrypting username and password
 
 
@@ -127,18 +90,11 @@ server.post("/signup", async (req, res) => {
     res.send(send_msg);
   }
 
-
-
-
-
   else {
-
-
     // en_ denotes encrypted
     // const en_email = encrypt.hashSync(req.body.Email, saltRounds)
     // // const en_username = encrypt.hashSync(req.body.Username,saltRounds)
     const en_password = encrypt.hashSync(req.body.Password, saltRounds)
-
 
 
     let doc;
@@ -205,15 +161,12 @@ server.post('/login', async (req, res) => {
 
     else {
       res.send("Invalid");
-      console.log("Invalid Username or Password")
-
-
-
+      console.log("Invalid Username or Password");
     }
 
   }
 
-  // }
+  
 
   else {
     console.log("Input Fields are empty")
@@ -237,16 +190,20 @@ server.get("/card-add-passwords", async (req, res) => {
 })
 
 
-server.put("/card-add-passwords/:id", async (req, res) => {
+server.put("/card-add-passwords/:id", async (req, res) => 
+{
   console.log("In Put request");
+  console.log(req.body.pass_id);
   // res.json(req.params.id);
   let doc;
+  
 
   try {
     doc = await User.findOneAndUpdate(
       {
         _id: req.params.id
       },
+      
       { $push: { linked_Pass: req.body.pass_id } },
       { new: true })
   } catch (err) {
@@ -254,8 +211,7 @@ server.put("/card-add-passwords/:id", async (req, res) => {
   }
 
   res.json(doc);
-
-
+ 
 
 })
 
@@ -265,10 +221,7 @@ server.put("/card-add-passwords/:id", async (req, res) => {
 server.put("/card-add-passwords/:id/update", (req, res) => {
 
   const password_array = req.body.updated_info;
-  // console.log(password_array);
-  // password_array.map(element=>
-
-  //   {
+ 
   const id = req.body.updated_info._id;
 
   const update_password = async (id, data) => {
@@ -296,20 +249,49 @@ server.put("/card-add-passwords/:id/update", (req, res) => {
 
 })
 
-
-
-
-
-
-server.delete("/card-add-passwords/:id/delete", (req, res) => {
+server.post("/card-add-passwords/:id/delete", async(req, res) => {
   // const deleted_array = req.body.deleted;
-  console.log(req.body);
-  const id = req.body._id;
-  console.log(id);
+  
 
-  const delete_password = async (id) => {
+  let id = await req.body;
+  console.log(id);
+  
+  // let user_profile_id = req.params.id;
+
+  console.log(id);
+  // console.log(user_profile_id);
+
+
+
+
+
+
+
+  
+  
+  const delete_password = async (identifier1,identifier2) => {
     try {
-      const deleting = await Password.findOneAndDelete(id);
+
+      const deleting = await Password.findOneAndDelete(
+        {
+          _id : identifier1
+        }
+
+
+      );
+
+      const data_from_user = await User.findOneAndUpdate({
+        
+          _id:identifier2},
+          {$pull:{linked_Pass : identifier1}
+        },
+        {new:true}
+        
+      )
+
+      console.log(data_from_user);
+  
+      // console.log(data_from_user);
 
     } catch (err) {
       console.log(err);
@@ -317,67 +299,12 @@ server.delete("/card-add-passwords/:id/delete", (req, res) => {
 
   }
 
-  delete_password({ _id: id });
+  // delete_password(id,user_profile_id);
+
+  
 
 
-
-
-  // }
-  // )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // try{
-  //   
-  //     {
-
-  //     }
-  //   )
-
-  // }catch(err)
-  // {
-  //   console.log(err);
-  // }
-
-
-
-})
-
-
-
-
+});
 
 server.post("/card-add-passwords", async (req, res) => {
   try {
@@ -394,15 +321,6 @@ server.post("/card-add-passwords", async (req, res) => {
 
     const doc = await pass_list.save();
     res.json(doc);
-
-
-
-
-
-
-
-
-
   }
 
   catch (err) {
@@ -413,6 +331,27 @@ server.post("/card-add-passwords", async (req, res) => {
 
 
 
+//Working with profile model of mongodb
+
+server.post("/login-successful/user-personal-info/:id",async(req,res) =>
+{
+  try
+  {
+    console.log(req.body);
+    const user_profile = new Profile();
+    user_profile.firstName = req.body.firstName;
+    user_profile.lastName = req.body.lastName;
+    user_profile.contacts = req.body.contacts;
+
+    const done = await user_profile.save();
+    
+  }
+
+  catch(err)
+  {
+    if(err) throw err;
+  }
+});
 
 
 server.listen({ port }, () => {

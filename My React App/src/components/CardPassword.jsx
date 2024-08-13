@@ -20,7 +20,6 @@ function CardPassword() {
 
   
 
-
   let fetchCredentials;
   let handleAddCredential;
   const pass = useContext(Context);
@@ -30,8 +29,12 @@ function CardPassword() {
   const [credentials, setCredentials] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
 
+  
+
+
 
   const u_id = pass.user_id;
+  let post;
 
 
 
@@ -87,31 +90,32 @@ function CardPassword() {
 
         //inserting into password collection
         const result = await axios.post("/card-add-passwords/", { website, username, password })
-        const pass_id = result.data._id;
-        // console.log(pass_id);
+        // console.log(result_post_data);
+        post = result.data;
+        console.log(post);
+       
+        
 
         //putting entered password to user collection
-        const add_password = await axios.put(`/card-add-passwords/${u_id}`, { pass_id })
-        console.log("Added Successfully");
-        // console.log(add_password.data);
-      }
+        // const add_password = await axios.put(`/card-add-passwords/${u_id}`, { pass_id })
+        // console.log("Added Successfully");
+        // // console.log(add_password.data);
+        
 
+      }  
       catch (err) {
         console.log(err);
       }
-
-      useEffect(() => {
-
-        fetchCredentials();
-      })
-
-
-
-
-    } else {
+      
+    }
+     else {
       toast.error("All fields are Mandatory");
     }
+
+    
   };
+
+  
 
   const handleSaveCredential = async(index) => {
     const updated_info = credentials[index];
@@ -161,19 +165,6 @@ function CardPassword() {
     
     setCredentials(updatedCredentials);
 
-
- 
-    
-
-
-
-
-
-
-    //sending data to backend for updation
-
-    // console.log(updatedCredentials);
-    // 
   };
 
 
@@ -183,26 +174,37 @@ function CardPassword() {
     const updatedCredentials = credentials.filter((_, i) => i !== index);
     setCredentials(updatedCredentials);
 
+    // console.log(credentials[index]);
+
     //deleting from database
-    const deleted= credentials[index];
-    console.log(deleted);
+    let deleted= credentials[index];
+    console.log(post);
+
+    // if(deleted._id)
+    // {
+    //   deleted = deleted._id
+
+    // }
+
+    // else{
+    //   deleted = add_password._id;
+    // }
+    
+   
+   
     let result;
 
-    try{
-     result = await axios.delete(`/card-add-passwords/${u_id}/delete`,{data : deleted});
-    }catch(err)
-    {
-      console.log(err);
-    }
+    // try{
+    //  result = await axios.post(`/card-add-passwords/${u_id}/delete`,{data : deleted});
+    // }catch(err)
+    // {
+    //   console.log(err);
+    // }
 
 
-    if(result)
-      {
-        useEffect(() => {
-
-          fetchCredentials();
-        })
+    
       }
+    
 
 
     
@@ -210,7 +212,7 @@ function CardPassword() {
 
 
 
-  };
+  
 
   return (
     <>

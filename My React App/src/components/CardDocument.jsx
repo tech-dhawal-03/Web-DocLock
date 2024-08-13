@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../assets/logo1.png";
 import document from "../assets/document.png";
 import "../all_css/carddocument.css";
@@ -8,9 +8,11 @@ import { IoDocumentSharp } from "react-icons/io5";
 import { IoIosHelpCircle } from "react-icons/io";
 import { MdInfoOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
+import Context from "../context/Context";
 
 function CardDocument() {
-  return (
+  const pass = useContext(Context);
+    return (
     <>
       <div className="cardhome_container">
         <div className="upper_bar">
@@ -50,7 +52,7 @@ function CardDocument() {
                   <p>Documents</p>{" "}
                 </button>
               </Link>
-              <Link to={"/card-add-passwords"} className="widthfull">
+              <Link to={`/user-personal-credentials-info/${pass.user_id}`} className="widthfull">
                 <button className="buttons">
                   <span>
                     <FaLock className="vertical_nav_icon" />

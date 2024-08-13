@@ -11,6 +11,8 @@ import { IoIosHelpCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
 import Context from "../context/Context";
 import { useContext } from "react";
+import axios from "../controllers/axios";
+
 
 function CardHome() {
   const pass = useContext(Context);
@@ -19,10 +21,7 @@ function CardHome() {
   const [profile, setProfile] = useState({
     firstName: "",
     lastName: "",
-    socials: "",
     contacts: "",
-    email: "",
-    username: "",
     password: "",
     image: logo,
   });
@@ -44,9 +43,29 @@ function CardHome() {
   };
 
   const handleEdit = () => setEditing(true);
-  const handleSave = () => {
+
+
+  const handleSave = async () => {
+
+
+    // console.log(tempProfile);
+    //inserting data into database...
+
+    try{
+
+      axios.post(`/login-successful/user-personal-info/${pass.user_id}`,tempProfile)
+      
+
+
+    }catch(e)
+    {
+      if(e) throw e;
+    }
+
+    //after updating details on profile page----saving to database...
     setProfile(tempProfile);
     setEditing(false);
+    // console.log(profile);
   };
   const handleCancel = () => {
     setTempProfile(profile);
@@ -76,7 +95,7 @@ function CardHome() {
               </button>
             </Link>
             <div className="nav_content">
-              <Link to={"/cardprofile"} className="widthfull">
+              <Link to={`/user-personal-info/${pass.user_id}`} className="widthfull">
                 <button className="highlight">
                   <span>
                     <FaUserCircle className="vertical_nav_icon" />
@@ -93,8 +112,7 @@ function CardHome() {
                   <p>Documents</p>{" "}
                 </button>
               </Link>
-              <Link
-                to={`/card-add-passwords/${pass.user_id}`}
+              <Link to={`/user-personal-credentials-info/${pass.user_id}`}
                 className="widthfull"
               >
                 <button className="buttons">
@@ -115,6 +133,9 @@ function CardHome() {
             </div>
             <img src={document} className="document_image" alt="" />
           </div>
+
+
+
 
           <div className="profile-container">
             <div className="profile-header">
@@ -163,7 +184,7 @@ function CardHome() {
                     type="email"
                     id="email"
                     className="profile_input"
-                    value={profile.email}
+                    value={pass.person.email}
                     disabled
                   />
                 </div>
@@ -173,7 +194,7 @@ function CardHome() {
                     type="text"
                     id="username"
                     className="profile_input"
-                    value={profile.username}
+                    value={pass.person.username}
                     disabled
                   />
                 </div>
@@ -183,7 +204,7 @@ function CardHome() {
                     type="password"
                     id="password"
                     className="profile_input"
-                    value={profile.password}
+                    value={pass.person.password}
                     disabled
                   />
                 </div>

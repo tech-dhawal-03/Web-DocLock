@@ -27,15 +27,19 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Error />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="login/login-successful" element={<CardHome/>} />
+        <Route path="login-successful/user-personal-info/:user_id" element={<CardHome/>} />
+        
         <Route path="/logout-successful" element={<Hero/>} />
-        <Route path="login-successful" element={<CardHome/>} />     
-        <Route path="/cardprofile" element={<CardHome/>} />
+        <Route path="/user-personal-info/:user_id" element={<CardHome/>} />
         <Route path="/logout-successful" element={<Hero/>} />
         <Route path="/cardhelp" element={<CardHelp />} />
         <Route path="/cardprofile" element={<CardHome />} />
         <Route path="/carddocument" element={<CardDocument/>} />
-        <Route path="/card-add-passwords/:user_id" element={<CardPassword />} />       
+        <Route path="/user-personal-credentials-info/:user_id" element={<CardPassword />} />  
+
+      {/* adding routes for unauthenticated login */}
+        <Route path="login/login-successful" element={<CardHome/>} />
+
         
       </Routes>
 

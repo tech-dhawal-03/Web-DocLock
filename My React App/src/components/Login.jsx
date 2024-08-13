@@ -59,72 +59,79 @@ function Login() {
 
     // console.log("Please enter valid Username & Password")
 
-  //   let err = 0;
+    let err = 0;
 
 
-  //   try {
-  //     const result = await axios.post("/login", { username, password })
-  //     console.log(result);
+    try {
+      const result = await axios.post("/login", { username, password })
+      console.log(result);
 
-  //     if (result.data=="Invalid") {
-  //       toast.error("Invalid Username or Password");
-  //       err = 1;
+      if (result.data=="Invalid") {
+        toast.error("Invalid Username or Password");
+        err = 1;
 
 
         
-  //       // login-successful
-  //     }
+        // login-successful
+      }
 
-  //     else
-  //     {
-  //       let User_id = result.data.username;
-  //       let unique_id = result.data._id;
+      else
+      {
+        let User_id = result.data.username;
+        let unique_id = result.data._id;
+
+        pass.setPerson({
+          email : result.data.email,
+          username : User_id,
+          password : password
+        })
 
        
-  //       User_id = User_id.charAt(0).toUpperCase() + User_id.substring(1).toLowerCase();
-  //       // console.log(pass.user_id);
-  //       console.log(result.data._id);
+        User_id = User_id.charAt(0).toUpperCase() + User_id.substring(1).toLowerCase();
+       // console.log(pass.user_id);
+        console.log(result.data._id);
 
-  //       pass.setUser_Id(unique_id);
-  //       console.log(pass.user_id)
+        pass.setUser_Id(unique_id);
+       console.log(pass.user_id)
   
 
 
-  //       pass.setUser_data(User_id);
-  //       console.log(pass.user_data);
-  //       // console.log(pass.user_id);
-  //       // console.log(typeof(pass.user_data));
+        pass.setUser_data(User_id);
+        console.log(pass.user_data);
+        // console.log(pass.user_id);/       // console.log(typeof(pass.user_data));
 
-  //       toast.success("Login Successful !")
-  //       navigate(`/login/login-successful`)
-  //       // pass.setUser_Id("");
+       toast.success("Login Successful !")
+        navigate(`/login-successful/user-personal-info/${unique_id}`)
+       // pass.setUser_Id("");
 
-  //       err = 1;
-  //     }
+       err = 1;
+     }
 
       
 
-  //   }
+   }
 
-  //   catch (Error) {
-  //     console.log(Error)
-  //   }
+   catch (Error) {
+     console.log(Error)
+   }
   
 
-  // if (err === 0) {
-  //   console.log("Invalid");
-  //   toast.error("Invalid Username or Password")
-  // }
+ if (err === 0) {
+   console.log("Invalid");
+   toast.error("Invalid Username or Password")
+ }
 
 
 
-
-// axios.get("/login").
-//   then(function (docs, err) {
-//     if (err) throw err;
-//     else console.log(docs.data);
-//   }
-//   )
+ axios.get("/login").then(function (docs, err) 
+{
+   if (err) throw err;  
+     
+  
+  else 
+  {console.log(docs.data);   
+  }
+})
 
   }
 
@@ -221,8 +228,9 @@ return (
   </>
 
 );
-
 }
+
+
 
 
 
