@@ -193,7 +193,7 @@ server.get("/card-add-passwords", async (req, res) => {
 server.put("/card-add-passwords/:id", async (req, res) => 
 {
   console.log("In Put request");
-  console.log(req.body.pass_id);
+  
   // res.json(req.params.id);
   let doc;
   
@@ -204,7 +204,7 @@ server.put("/card-add-passwords/:id", async (req, res) =>
         _id: req.params.id
       },
       
-      { $push: { linked_Pass: req.body.pass_id } },
+      { $push: { linked_Pass: req.body.post } },
       { new: true })
   } catch (err) {
     throw err;
@@ -249,23 +249,15 @@ server.put("/card-add-passwords/:id/update", (req, res) => {
 
 })
 
-server.post("/card-add-passwords/:id/delete", async(req, res) => {
-  // const deleted_array = req.body.deleted;
-  
-
-  let id = await req.body;
-  console.log(id);
-  
-  // let user_profile_id = req.params.id;
-
-  console.log(id);
-  // console.log(user_profile_id);
+server.delete("/card-add-passwords/:id/delete/:pass_id", async(req, res) => 
+  {
+    
+    const user_profile_id = req.params.id;
+    const paasword_id = req.params.pass_id;
 
 
 
-
-
-
+ 
 
   
   
@@ -289,7 +281,7 @@ server.post("/card-add-passwords/:id/delete", async(req, res) => {
         
       )
 
-      console.log(data_from_user);
+      
   
       // console.log(data_from_user);
 
@@ -299,7 +291,7 @@ server.post("/card-add-passwords/:id/delete", async(req, res) => {
 
   }
 
-  // delete_password(id,user_profile_id);
+  delete_password(paasword_id,user_profile_id);
 
   
 

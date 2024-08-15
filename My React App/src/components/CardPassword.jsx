@@ -28,6 +28,7 @@ function CardPassword() {
   const [website, setWebsite] = useState("");
   const [credentials, setCredentials] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
+  const [password_id,setPassword_id] = useState("");
 
   
 
@@ -91,15 +92,17 @@ function CardPassword() {
         //inserting into password collection
         const result = await axios.post("/card-add-passwords/", { website, username, password })
         // console.log(result_post_data);
-        post = result.data;
+        post = result.data._id;
         console.log(post);
+        setPassword_id(post);
+        // console.log(password_id);
        
         
 
         //putting entered password to user collection
-        // const add_password = await axios.put(`/card-add-passwords/${u_id}`, { pass_id })
-        // console.log("Added Successfully");
-        // // console.log(add_password.data);
+        const add_password = await axios.put(`/card-add-passwords/${u_id}`, { post })
+        console.log("Added Successfully");
+        
         
 
       }  
@@ -119,6 +122,7 @@ function CardPassword() {
 
   const handleSaveCredential = async(index) => {
     const updated_info = credentials[index];
+    console.log(updated_info);
     // console.log(updated_info);
     setEditIndex(null);
     // console.log(typeof(credentials));
@@ -135,15 +139,7 @@ function CardPassword() {
       }
 
 
-      if(result)
-      {
-        useEffect(() => {
-
-          fetchCredentials();
-        })
-      }
-
-
+  
   };
 
 
@@ -173,33 +169,34 @@ function CardPassword() {
   const handleDeleteCredential = async(index) => {
     const updatedCredentials = credentials.filter((_, i) => i !== index);
     setCredentials(updatedCredentials);
+    console.log(password_id);
 
-    // console.log(credentials[index]);
+    
 
     //deleting from database
     let deleted= credentials[index];
-    console.log(post);
+  
 
-    // if(deleted._id)
-    // {
-    //   deleted = deleted._id
+    if(deleted._id)
+    {
+      deleted = deleted._id
 
-    // }
+    }
 
-    // else{
-    //   deleted = add_password._id;
-    // }
+    else{
+      deleted = password_id;
+    }
     
    
    
     let result;
 
-    // try{
-    //  result = await axios.post(`/card-add-passwords/${u_id}/delete`,{data : deleted});
-    // }catch(err)
-    // {
-    //   console.log(err);
-    // }
+    try{
+     result = await axios.delete(`/card-add-passwords/${u_id}/delete/${deleted}`);
+    }catch(err)
+    {
+      console.log(err);
+    }
 
 
     
