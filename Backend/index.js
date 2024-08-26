@@ -6,15 +6,53 @@ import bcrypt from "bcrypt";
 import Profile from "./models/Profile.js";
 import User from "./models/User.js";
 import Password from "./models/Password.js";
-import { ObjectId } from "mongodb";
+import crypto, { createCipheriv } from "crypto";
+
+
+
+
+
+const algorithm = 'aes-256-cbc';
+const key = crypto.randomBytes(32);
+const iv = crypto.randomBytes(16);
+
+
+function encrypt(plaintext, key, iv) {
+  const cipher = createCipheriv(algorithm, key, iv);
+  let encryptedData = cipher.update(plaintext, "utf-8", "hex");
+  encryptedData += cipher.final("hex");
+  const base64iv = Buffer.from(iv, 'binary').toString('base64');
+  const base64key = Buffer.from(key, 'binary').toString('base64');
+  return {
+    iv: base64iv,
+    encryptedData: encryptedData,
+    key: base64key
+  };
+}
+
+
+function decrypt(ciphertext, key, iv) {
+  const original_key = Buffer.from(key, 'base64');
+  const original_iv = Buffer.from(iv, 'base64');
+  const decipher = crypto.createDecipheriv(algorithm, original_key, original_iv);
+  let decryptedData = decipher.update(ciphertext, "hex", "utf-8");
+  decryptedData += decipher.final("utf-8");
+
+  return decryptedData;
+}
+
+
+
+
+
+
 
 const server = express();
 const port = 3000;
 let user;
 let db_item;
-const encrypt = bcrypt;
+const hash = bcrypt;
 const saltRounds = 10;
-
 
 //connecting mongodb
 const db = mongoose;
@@ -33,12 +71,6 @@ async function main() {
 
 server.use(cors());
 server.use(bodyParser.json());
-
-// data from frontend is received as --> req
-// data to be sent from backend is sent as --> res
-//encrypting username and password
-
-
 
 // creating database
 server.post("/signup", async (req, res) => {
@@ -91,10 +123,8 @@ server.post("/signup", async (req, res) => {
   }
 
   else {
-    // en_ denotes encrypted
-    // const en_email = encrypt.hashSync(req.body.Email, saltRounds)
-    // // const en_username = encrypt.hashSync(req.body.Username,saltRounds)
-    const en_password = encrypt.hashSync(req.body.Password, saltRounds)
+
+    const en_password = hash.hashSync(req.body.Password, saltRounds)
 
 
     let doc;
@@ -148,7 +178,7 @@ server.post('/login', async (req, res) => {
     if (db_item) {
 
 
-      match = encrypt.compareSync(req.body.password, db_item.password)
+      match = hash.compareSync(req.body.password, db_item.password)
 
     }
 
@@ -166,7 +196,7 @@ server.post('/login', async (req, res) => {
 
   }
 
-  
+
 
   else {
     console.log("Input Fields are empty")
@@ -183,27 +213,43 @@ server.get("/card-add-passwords", async (req, res) => {
     _id: req.query.user_id
 
   }).populate('linked_Pass');
-  res.json(result);
-  // console.log(result);
+
+  if (result) {
+    const user_passwords = result.linked_Pass;
+
+    // console.log(decrypt(user_passwords.password,user_passwords.key,user_passwords.iv));
+
+    //user_passwords is a password array
+
+    user_passwords.forEach(entries => {
+
+      const decrypted_password = decrypt(entries.password, entries.key, entries.iv);
+      entries.password = decrypted_password;
+    })
+
+    console.log(user_passwords);
+    res.send(user_passwords);
+
+  }
+
 
 
 })
 
 
-server.put("/card-add-passwords/:id", async (req, res) => 
-{
+server.put("/card-add-passwords/:id", async (req, res) => {
   console.log("In Put request");
-  
+
   // res.json(req.params.id);
   let doc;
-  
+
 
   try {
     doc = await User.findOneAndUpdate(
       {
         _id: req.params.id
       },
-      
+
       { $push: { linked_Pass: req.body.post } },
       { new: true })
   } catch (err) {
@@ -211,7 +257,7 @@ server.put("/card-add-passwords/:id", async (req, res) =>
   }
 
   res.json(doc);
- 
+
 
 })
 
@@ -221,12 +267,24 @@ server.put("/card-add-passwords/:id", async (req, res) =>
 server.put("/card-add-passwords/:id/update", (req, res) => {
 
   const password_array = req.body.updated_info;
+
+  console.log(password_array);
+  console.log("Before Encryption");
+
+  const updated_encryption = encrypt(password_array.password,key,iv);
+
+  password_array.password = updated_encryption.encryptedData;
+  password_array.iv = updated_encryption.iv;
+  password_array.key = updated_encryption.key;
+
+  console.log(password_array);
+
  
+
   const id = req.body.updated_info._id;
 
   const update_password = async (id, data) => {
-    console.log(id);
-    console.log(data);
+    
     // 
     try {
       const update = await Password.findOneAndUpdate(
@@ -249,40 +307,41 @@ server.put("/card-add-passwords/:id/update", (req, res) => {
 
 })
 
-server.delete("/card-add-passwords/:id/delete/:pass_id", async(req, res) => 
-  {
-    
-    const user_profile_id = req.params.id;
-    const paasword_id = req.params.pass_id;
+server.delete("/card-add-passwords/:id/delete/:pass_id", async (req, res) => {
+
+  const user_profile_id = req.params.id;
+  const paasword_id = req.params.pass_id;
 
 
 
- 
 
-  
-  
-  const delete_password = async (identifier1,identifier2) => {
+
+
+
+  const delete_password = async (identifier1, identifier2) => {
     try {
 
       const deleting = await Password.findOneAndDelete(
         {
-          _id : identifier1
+          _id: identifier1
         }
 
 
       );
 
       const data_from_user = await User.findOneAndUpdate({
-        
-          _id:identifier2},
-          {$pull:{linked_Pass : identifier1}
+
+        _id: identifier2
+      },
+        {
+          $pull: { linked_Pass: identifier1 }
         },
-        {new:true}
-        
+        { new: true }
+
       )
 
-      
-  
+
+
       // console.log(data_from_user);
 
     } catch (err) {
@@ -291,9 +350,9 @@ server.delete("/card-add-passwords/:id/delete/:pass_id", async(req, res) =>
 
   }
 
-  delete_password(paasword_id,user_profile_id);
+  delete_password(paasword_id, user_profile_id);
 
-  
+
 
 
 });
@@ -301,10 +360,19 @@ server.delete("/card-add-passwords/:id/delete/:pass_id", async(req, res) =>
 server.post("/card-add-passwords", async (req, res) => {
   try {
 
+
+
+    const encrypted_password = encrypt(req.body.password, key, iv);
+    console.log(encrypted_password);
+
+
+
     let pass_list = new Password();
     pass_list.website = req.body.website;
     pass_list.username = req.body.username;
-    pass_list.password = req.body.password;
+    pass_list.password = encrypted_password.encryptedData;
+    pass_list.iv = encrypted_password.iv;
+    pass_list.key = encrypted_password.key;
 
 
     console.log("Registered Successfully");
@@ -325,25 +393,66 @@ server.post("/card-add-passwords", async (req, res) => {
 
 //Working with profile model of mongodb
 
-server.post("/login-successful/user-personal-info/:id",async(req,res) =>
-{
-  try
-  {
-    console.log(req.body);
+server.post("/login-successful/user-personal-info/:id", async (req, res) => {
+
+  try {
+
     const user_profile = new Profile();
     user_profile.firstName = req.body.firstName;
     user_profile.lastName = req.body.lastName;
     user_profile.contacts = req.body.contacts;
 
     const done = await user_profile.save();
-    
+    res.json(done);
+
   }
 
-  catch(err)
-  {
-    if(err) throw err;
+  catch (err) {
+    if (err)
+      console.log(err);
   }
 });
+
+
+server.put("/login-successful/user-personal-info/:id/:person_id", async (req, res) => {
+
+
+  try {
+    const docs = await User.findOneAndUpdate(
+      {
+        _id: req.params.id
+      },
+
+      { personal_details: req.params.person_id },
+      { new: true })
+
+
+  } catch (err) {
+    throw err;
+  }
+
+
+
+}
+)
+
+
+server.get("/login-successful/user-personal-info/:id", async (req, res) => {
+  const u_id = req.params.id;
+  const get_result = await User.findOneAndUpdate(
+    {
+      _id: u_id
+    })
+    .populate('personal_details')
+    .populate('password')
+
+  console.log(get_result);
+
+
+  res.json(get_result);
+
+
+})
 
 
 server.listen({ port }, () => {

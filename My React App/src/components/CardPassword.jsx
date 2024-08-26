@@ -53,10 +53,10 @@ function CardPassword() {
         }).
           then(function (docs, err) {
             if (err) throw err;
+            
 
-
-
-            else setCredentials(docs.data.linked_Pass)
+            else setCredentials(docs.data)
+            
 
           })
 
@@ -198,19 +198,9 @@ function CardPassword() {
       console.log(err);
     }
 
-
     
       }
     
-
-
-    
-
-
-
-
-  
-
   return (
     <>
       <div className="cardhome_container">

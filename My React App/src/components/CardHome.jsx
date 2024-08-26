@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import logo from "../assets/logo1.png";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -12,25 +13,77 @@ import { Link } from "react-router-dom";
 import Context from "../context/Context";
 import { useContext } from "react";
 import axios from "../controllers/axios";
+import { lightGreen } from "@mui/material/colors";
+
 
 
 function CardHome() {
   const pass = useContext(Context);
+  let user_details;
+
+
 
   const [editing, setEditing] = useState(false);
+  
+
   const [profile, setProfile] = useState({
     firstName: "",
     lastName: "",
     contacts: "",
     password: "",
-    image: logo,
+    image : logo
   });
 
   const [tempProfile, setTempProfile] = useState({ ...profile });
 
+
+  useEffect(() => {
+    const fetchCredentials = async () => {
+      try {
+        user_details = await axios.get(`/login-successful/user-personal-info/${pass.user_id}`);
+        user_details = user_details.data.personal_details;
+        console.log(user_details);
+        
+
+          setTempProfile(
+            {
+              ...tempProfile,
+              firstName: user_details.firstName,
+              lastName: user_details.lastName,
+              contacts: user_details.contacts,
+              
+            }
+          )
+
+        
+        
+
+       
+
+      }
+
+      catch (err) {
+        if (err) throw err;
+      }
+
+    }
+
+
+    fetchCredentials();
+
+  }, [])
+
+  useEffect(()=>{
+    console.log(tempProfile);
+    setProfile(tempProfile);
+  },[tempProfile]);
+
+
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setTempProfile({ ...tempProfile, [id]: value });
+
   };
 
   const handleImageChange = (e) => {
@@ -46,27 +99,34 @@ function CardHome() {
 
 
   const handleSave = async () => {
+    
 
 
-    // console.log(tempProfile);
+    console.log(tempProfile);
+    setProfile(tempProfile);
     //inserting data into database...
 
-    try{
+    try {
+    
+      const result = await axios.post(`/login-successful/user-personal-info/${pass.user_id}`, tempProfile);
+      // console.log(result);
+      const personal_id = result.data._id;
 
-      axios.post(`/login-successful/user-personal-info/${pass.user_id}`,tempProfile)
-      
+      const add_personal_info = axios.put(`/login-successful/user-personal-info/${pass.user_id}/${personal_id}`);
 
-
-    }catch(e)
-    {
-      if(e) throw e;
     }
 
-    //after updating details on profile page----saving to database...
-    setProfile(tempProfile);
+
+
+    catch (e) {
+      if (e) throw e;
+    }
+
     setEditing(false);
-    // console.log(profile);
+
   };
+
+
   const handleCancel = () => {
     setTempProfile(profile);
     setEditing(false);
@@ -204,7 +264,7 @@ function CardHome() {
                     type="password"
                     id="password"
                     className="profile_input"
-                    value={pass.person.password}
+                    value={profile.password}
                     disabled
                   />
                 </div>
@@ -236,6 +296,7 @@ function CardHome() {
                           onChange={handleImageChange}
                         />
                       </div>
+
                       <div className="detail-item">
                         <TextField
                           variant="filled"
@@ -249,6 +310,7 @@ function CardHome() {
                           onChange={handleInputChange}
                         ></TextField>
                       </div>
+
                       <div className="detail-item">
                         <TextField
                           variant="filled"
