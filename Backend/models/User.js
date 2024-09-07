@@ -8,7 +8,12 @@ const userSchema = new mongoose.Schema({
     linked_Pass: [{
       type: Schema.Types.ObjectId,
       ref: 'Password'
-    }]
+    }],
+    
+    personal_details : {
+      type : Schema.Types.ObjectId,
+      ref : 'Profile'
+    }
   },
     {
       timestamps: true

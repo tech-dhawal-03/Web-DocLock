@@ -21,6 +21,7 @@ function Signup() {
 
   const navigate = useNavigate();
   const [visible, setVisiblity] = useState(false);
+  
 
 
 
@@ -39,7 +40,7 @@ function Signup() {
     Setform({
       ...form,
       [e.target.name]: e.target.value,
-     
+
     });
     console.log(form);
   };
@@ -88,20 +89,27 @@ function Signup() {
       toast.error("Username / Email already taken")
       setTimeout(() => {
         toast.success("Sign in with other Account")
+        Setform({
+          ...form,
+          Email : '',
+          Username : '',
+          Password : ''
+        })
+        
         navigate("/signup")
 
-      },800)
+      }, 800)
 
     }
 
     else {
       toast.success("Registered Successfully")
-      setTimeout(()=>{
+      setTimeout(() => {
         toast.success("Login Now !!")
-      navigate("/login")
+        navigate("/login")
 
-      },800)
-      
+      }, 800)
+
 
     }
 
@@ -149,7 +157,7 @@ function Signup() {
                 NEW HERE!! <br />
                 SIGN IN
               </h2>
-              <form onSubmit={handleform} autoComplete="off">
+              <form onSubmit={handleform} autoComplete="off" id="sign-up-form">
                 <div className="inputbox_signup">
                   <FaEnvelope className="icon" />
                   <input
@@ -195,6 +203,9 @@ function Signup() {
                   <div>{<CustomButton />}</div>
                 </a>
               </form>
+
+
+
             </div>
           </div>
           <Link to={"/login"} className="btns_signup login" >

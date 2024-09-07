@@ -9,10 +9,7 @@ import { toast } from 'react-toastify';
 import CardHome from "./CardHome";
 import Context from "../context/Context";
 
-// import ReactDOM from "react-dom";
 
-
-// export 
 
 
 function Login() {
@@ -38,7 +35,7 @@ function Login() {
 
 
 
-  // login = JSON.stringify(login);
+
 
 
 
@@ -50,7 +47,7 @@ function Login() {
     // Event.preventDefault();
       
     e.preventDefault();
-    navigate(`/login/login-successful`)
+    // navigate(`/login/login-successful`)
 
     // console.log(username);
     // console.log(password)
@@ -88,17 +85,11 @@ function Login() {
 
        
         User_id = User_id.charAt(0).toUpperCase() + User_id.substring(1).toLowerCase();
-       // console.log(pass.user_id);
-        console.log(result.data._id);
+      
 
-        pass.setUser_Id(unique_id);
-       console.log(pass.user_id)
-  
-
-
+        pass.setUser_Id(unique_id);  
         pass.setUser_data(User_id);
-        console.log(pass.user_data);
-        // console.log(pass.user_id);/       // console.log(typeof(pass.user_data));
+
 
        toast.success("Login Successful !")
         navigate(`/login-successful/user-personal-info/${unique_id}`)
@@ -120,20 +111,7 @@ function Login() {
    console.log("Invalid");
    toast.error("Invalid Username or Password")
  }
-
-
-
- axios.get("/login").then(function (docs, err) 
-{
-   if (err) throw err;  
-     
-  
-  else 
-  {console.log(docs.data);   
-  }
-})
-
-  }
+}
 
 
 

@@ -4,7 +4,11 @@ const passwordSchema = new mongoose.Schema(
 {
     website: String,
     username: String,
-    password: String
+    password: String,
+    iv : String,
+    key : String
+    
+    
 },
 {
     timestamps: true
