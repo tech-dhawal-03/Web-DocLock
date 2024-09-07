@@ -92,7 +92,7 @@ server.post("/signup", async (req, res) => {
 
   try {
     existing_email = await User.findOne({
-      username: req.body.Email
+      email: req.body.Email
 
     });
   } catch (err) {
@@ -110,6 +110,8 @@ server.post("/signup", async (req, res) => {
     console.log(err);
   }
 
+  console.log(existing_email);
+
   if (existing_user) {
     console.log("User Already Exists");
     send_msg = "Error 101";
@@ -117,7 +119,8 @@ server.post("/signup", async (req, res) => {
   }
 
   else if (existing_username || existing_email) {
-    console.log("Username/Email already taken");
+
+    console.log("Username/E-mail already taken");
     send_msg = "Error 102";
     res.send(send_msg);
   }
