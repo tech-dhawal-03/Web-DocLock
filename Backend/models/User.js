@@ -13,7 +13,12 @@ const userSchema = new mongoose.Schema({
     personal_details : {
       type : Schema.Types.ObjectId,
       ref : 'Profile'
-    }
+    },
+
+    docs_category : [{
+      type : Schema.Types.ObjectId,
+      ref : 'Document'
+    }]
   },
     {
       timestamps: true

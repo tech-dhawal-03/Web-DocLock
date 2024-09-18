@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import Profile from "./models/Profile.js";
 import User from "./models/User.js";
 import Password from "./models/Password.js";
+import Document from "./models/Document.js";
 import crypto, { createCipheriv } from "crypto";
 
 
@@ -456,6 +457,12 @@ server.get("/login-successful/user-personal-info/:id", async (req, res) => {
 
 
 })
+
+
+
+
+
+
 
 
 server.listen({ port }, () => {
