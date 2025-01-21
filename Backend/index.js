@@ -6,8 +6,8 @@ import bcrypt from "bcrypt";
 import Profile from "./models/Profile.js";
 import User from "./models/User.js";
 import Password from "./models/Password.js";
-import Document from "./models/Document.js";
 import crypto, { createCipheriv } from "crypto";
+import documentRoutes from "./routes/documentRoutes.js"
 
 
 
@@ -443,7 +443,7 @@ server.put("/login-successful/user-personal-info/:id/:person_id", async (req, re
 
 server.get("/login-successful/user-personal-info/:id", async (req, res) => {
   const u_id = req.params.id;
-  const get_result = await User.findOneAndUpdate(
+  const get_result = await User.findOne(
     {
       _id: u_id
     })
@@ -460,6 +460,11 @@ server.get("/login-successful/user-personal-info/:id", async (req, res) => {
 
 
 
+server.use("/card-add-document",documentRoutes)
+
+
+
+
 
 
 
@@ -468,4 +473,3 @@ server.get("/login-successful/user-personal-info/:id", async (req, res) => {
 server.listen({ port }, () => {
   console.log(`Server is running on port ${port}`)
 });
-

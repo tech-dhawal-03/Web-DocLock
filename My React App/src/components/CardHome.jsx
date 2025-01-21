@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import Context from "../context/Context";
 import { useContext } from "react";
 import axios from "../controllers/axios";
-import { lightGreen } from "@mui/material/colors";
+
 
 
 
@@ -163,7 +163,7 @@ function CardHome() {
                   <p>Profile</p>{" "}
                 </button>
               </Link>
-              <Link to={"/carddocument"} className="widthfull">
+              <Link to={`/card-add-document/${pass.user_id}`} className="widthfull">
                 {" "}
                 <button className="buttons">
                   <span>

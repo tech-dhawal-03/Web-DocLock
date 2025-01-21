@@ -34,7 +34,7 @@ export default function App() {
         <Route path="/logout-successful" element={<Hero/>} />
         <Route path="/cardhelp" element={<CardHelp />} />
         <Route path="/cardprofile" element={<CardHome />} />
-        <Route path="/carddocument" element={<CardDocument/>} />
+        <Route path="/card-add-document/:user_id" element={<CardDocument/>} />
         <Route path="/user-personal-credentials-info/:user_id" element={<CardPassword />} />  
 
       {/* adding routes for unauthenticated login */}

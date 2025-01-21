@@ -15,10 +15,8 @@ const userSchema = new mongoose.Schema({
       ref : 'Profile'
     },
 
-    docs_category : [{
-      type : Schema.Types.ObjectId,
-      ref : 'Document'
-    }]
+    docs_category : [],
+    
   },
     {
       timestamps: true

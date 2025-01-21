@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   TextField,
   Button,
@@ -37,14 +37,68 @@ import { IoDocumentSharp } from "react-icons/io5";
 import { IoIosHelpCircle } from "react-icons/io";
 import { Link } from "react-router-dom";
 import Context from "../context/Context";
+import axios from "../controllers/axios";
 
 function CardDocument() {
   const pass = useContext(Context);
+  const user_personal = pass.user_id;
+
+  let fetchCategories;
 
   //document requisite
   const [categories, setCategories] = useState([
     { name: "Others", color: getRandomColor() },
   ]);
+
+
+  //get category from backend
+
+  useEffect(()=>{
+    fetchCategories = async()=>{
+    try{
+      const response = await axios.get(`/card-add-document/${user_personal}`)
+      const categoriesArray = response.data;
+      console.log(categoriesArray);
+
+      
+      //creating new array of newly added categories
+      const newCategories = categoriesArray.map((cat)=>
+      (
+         
+        {name : cat, color : getRandomColor()}
+        
+        
+      ))
+
+
+      //now setting previous and newly added categories to a single array
+      setCategories([
+        ...categories,...newCategories
+      ])
+
+      
+
+      
+
+  }
+
+
+      
+
+    
+    catch(err)
+    {
+      console.log(`Unable to get category : ${err.message}`);
+    }
+
+  }
+
+  fetchCategories();
+
+  },[])
+
+
+
   const [openFileDialog, setOpenFileDialog] = useState(false);
   const [openCategoryDialog, setOpenCategoryDialog] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
@@ -65,8 +119,10 @@ function CardDocument() {
     setOpenFileDialog(false);
   };
 
-  const handleAddFile = (e) => {
+  const handleAddFile = async(e) => {
     const file = e.target.files[0];
+    console.log(selectedCategory);
+
     if (file) {
       setFiles([
         ...files,
@@ -77,6 +133,37 @@ function CardDocument() {
           url: URL.createObjectURL(file),
         },
       ]);
+
+
+      //this file data is not easily accessible at the backend, so making it as a part of multipart/form-data
+
+      const fileData = new FormData();
+      fileData.append('file',file)
+      fileData.append('category',selectedCategory)
+
+      console.log(fileData);
+
+
+      
+
+      //posting file to backend - api handling
+
+      try{
+        const postFile = await axios.post(`/card-add-document/${user_personal}/upload-document`,
+          fileData
+        )
+     
+
+      }
+       catch(err)
+       {
+        console.log(`Unable to establish connection with the backend...:${err.message}`);
+        
+
+       }
+
+
+  
       handleCloseFileDialog();
     }
   };
@@ -90,12 +177,59 @@ function CardDocument() {
     setNewCategoryName("");
   };
 
-  const handleAddCategory = () => {
+  const handleAddCategory = async() => {
+
     if (newCategoryName) {
       setCategories([
         ...categories,
         { name: newCategoryName, color: getRandomColor() },
       ]);
+
+
+
+      //TO-DO : 1 To add this category to user database  
+      //Handling POST HTTPS request
+      //Mongoose User Model will be used...
+
+
+      try{
+        console.log(user_personal);
+        const response = await axios.post(`/card-add-document/${user_personal}`,{newCategoryName})
+        console.log(response.status);
+       
+
+
+        if(response.status == 200) 
+          {
+            handleCloseCategoryDialog();
+          }
+
+      }
+
+      catch(err)
+      {
+        console.log(`Unable to add category : ${err.message}`);
+      }
+
+
+      // try{
+      //   await axios.get("/carddocument").then(function(docs,err){
+      //     if(err) throw err;
+      //     else{
+      //       console.log(docs.data);
+      //     }
+      //   })
+
+
+      // }
+      // catch(error)
+      // {
+      //   console.log(`Unable to add category to database : ${error.message} `);
+      // }
+
+
+      
+      
       handleCloseCategoryDialog();
     }
   };
@@ -120,16 +254,55 @@ function CardDocument() {
     setEditingCategory(null);
   };
 
-  const handleEditCategory = () => {
+  const handleEditCategory = async() => {
+    
+
+
     const newCategoryName = prompt("Edit category name:", editingCategory.name);
+    //newCategoryName is the edited name
+
+    console.log(editingCategory.name);
+
+    console.log("In Edit Category",newCategoryName);
     if (newCategoryName) {
       setCategories(
         categories.map((cat) =>
+          
           cat.name === editingCategory.name
             ? { ...cat, name: newCategoryName }
             : cat
         )
+
+        
+        
       );
+
+      try{
+
+      //making update request
+      const updatedData = await axios.patch(`/card-add-document/${user_personal}`,
+        {
+          updatedCategory : newCategoryName,
+          previousCategory : editingCategory.name
+
+        })
+
+
+        if(updatedData.status == 200) handleCategoryMenuClose();
+
+
+        useEffect(()=>{
+          fetchCategories()
+        })
+          
+
+      }
+      catch(err)
+      {
+        console.log(`Error Connecting with the Backend API ${err.message}`);
+      }
+
+
       setFiles(
         files.map((file) =>
           file.category === editingCategory.name
@@ -142,9 +315,35 @@ function CardDocument() {
   };
 
   const handleDeleteCategory = () => {
+    console.log(editingCategory.name);
+
     setCategories(
       categories.filter((cat) => cat.name !== editingCategory.name)
     );
+
+    //deleting category in the backend
+
+    try{
+       axios.delete(`/card-add-document/${user_personal}`,
+      {
+        params : {
+          deleted_category : editingCategory.name
+        }
+      },
+        
+      )
+
+      useEffect(()=>{
+        fetchCategories()
+      })
+
+    } catch(err)
+    {
+      console.log(`"Failed to connect with Backend : ${err.message}`);
+    }
+
+
+  
     setFiles(files.filter((file) => file.category !== editingCategory.name));
     handleCategoryMenuClose();
   };
@@ -209,7 +408,7 @@ function CardDocument() {
           <img src={logo} alt="" />
           <div className="welcome">
             <h1>Welcome</h1>
-            <h3>Email</h3>
+            <h3>{pass.user_data}</h3>
           </div>
         </div>
 
@@ -326,6 +525,7 @@ function CardDocument() {
             </Menu>
 
             {/* file add popup */}
+          
             <Dialog open={openFileDialog} onClose={handleCloseFileDialog}>
               <DialogTitle>Add File to {selectedCategory}</DialogTitle>
               <DialogContent>
@@ -340,6 +540,8 @@ function CardDocument() {
                 </Button>
               </DialogActions>
             </Dialog>
+
+           
 
             {/* category add popup */}
             <Dialog
