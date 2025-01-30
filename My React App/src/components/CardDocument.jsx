@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import {
   TextField,
   Button,
@@ -98,7 +99,6 @@ function CardDocument() {
   },[])
 
 
-
   const [openFileDialog, setOpenFileDialog] = useState(false);
   const [openCategoryDialog, setOpenCategoryDialog] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
@@ -110,6 +110,8 @@ function CardDocument() {
   const [filterAnchorEl, setFilterAnchorEl] = useState(null);
   const [sortAnchorEl, setSortAnchorEl] = useState(null);
 
+
+
   const handleOpenFileDialog = (category) => {
     setSelectedCategory(category);
     setOpenFileDialog(true);
@@ -118,6 +120,44 @@ function CardDocument() {
   const handleCloseFileDialog = () => {
     setOpenFileDialog(false);
   };
+
+  const fetchFile = async() =>
+  // we will fetch all the files, and will display on UI based on what user chooses
+  {
+    
+    try{
+      let response = await axios.get(`/card-add-document/${user_personal}/get-all-files`)
+      response = response.data
+      console.log(response)
+
+      const filesObtained = response.map((item,index)=>(
+        
+          {
+            category : item.category,
+            name : item.fileName,
+            date : new Date(item.dateUploaded).toLocaleString(),
+            url : item.url ,
+
+          }
+        
+        )
+
+      )
+
+      setFiles([...files,...filesObtained])
+      
+    }
+
+    catch(err)
+    {
+      console.log(`Unable to connect with backend api : ${err.message}`);
+    }
+  }
+
+  useEffect(()=>{
+    fetchFile();
+
+  },[])
 
   const handleAddFile = async(e) => {
     const file = e.target.files[0];
@@ -152,6 +192,9 @@ function CardDocument() {
         const postFile = await axios.post(`/card-add-document/${user_personal}/upload-document`,
           fileData
         )
+        handleCloseFileDialog();
+        if(postFile) toast.success("File Uploaded Successfully !")
+          
      
 
       }
@@ -239,9 +282,13 @@ function CardDocument() {
   };
 
   const filteredFiles = files.filter(
+    
+    
     (file) =>
+
       file.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (selectedCategory ? file.category === selectedCategory : true)
+    
   );
 
   const handleCategoryMenuClick = (event, category) => {
@@ -322,6 +369,7 @@ function CardDocument() {
     );
 
     //deleting category in the backend
+    //also handling deletion of files included in deleted category
 
     try{
        axios.delete(`/card-add-document/${user_personal}`,
@@ -379,7 +427,14 @@ function CardDocument() {
   //     const link = document.createElement('a');
   //     link.href = url;
   //     link.setAttribute('download', file.name);
-  //     document.body.appendChild(link);
+  //     document.body.appendChild(link);console.log("Categories:", categories);
+console.log("Files:", files);
+console.log("Selected Category:", selectedCategory);
+console.log("Search Term:", searchTerm);
+console.log("Editing Category:", editingCategory);
+console.log("Anchor El:", anchorEl);
+console.log("Filter Anchor El:", filterAnchorEl);
+console.log("Sort Anchor El:", sortAnchorEl);
   //     link.click();
   //     document.body.removeChild(link);
   //   } catch (error) {
@@ -387,7 +442,36 @@ function CardDocument() {
   //   }
   // };
 
-  const handleDelete = (fileToDelete) => {
+  const handleDelete = async(fileToDelete) => {
+    console.log(fileToDelete);
+    //handling file delete without deleting category
+    try{
+      const deleteFiles = await axios.delete(`/card-add-document/${user_personal}/delete-file`,
+        {
+          params : {
+            deletedFile : fileToDelete
+          }
+        }
+
+      
+
+
+      )
+
+      if(deleteFiles) 
+      {
+        useEffect(()=>{
+          fetchFile()
+        })
+      }
+
+    }
+
+    catch(err)
+    {
+      console.log(`Couldn't connect with the backend API ${err.message}`);
+    }
+
     const updatedFiles = files.filter((file) => file !== fileToDelete);
     setFiles(updatedFiles);
   };
@@ -424,7 +508,7 @@ function CardDocument() {
               </button>
             </Link>
             <div className="nav_content">
-              <Link to={"/cardprofile"} className="widthfull">
+              <Link to={`/user-personal-info/${pass.user_id}`} className="widthfull">
                 <button className="buttons">
                   <span>
                     <FaUserCircle className="vertical_nav_icon" />
@@ -665,7 +749,8 @@ function CardDocument() {
                             style={styles.viewButton}
                             onClick={() => window.open(file.url, "_blank")}
                           >
-                            <RemoveRedEye />
+
+                            <GetApp />
                           </IconButton>
 
                           {/* download file button

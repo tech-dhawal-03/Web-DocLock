@@ -32,7 +32,7 @@ export default function App() {
         <Route path="/logout-successful" element={<Hero/>} />
         <Route path="/user-personal-info/:user_id" element={<CardHome/>} />
         <Route path="/logout-successful" element={<Hero/>} />
-        <Route path="/cardhelp" element={<CardHelp />} />
+        <Route path="/help-me/know-more" element={<CardHelp />} />
         <Route path="/cardprofile" element={<CardHome />} />
         <Route path="/card-add-document/:user_id" element={<CardDocument/>} />
         <Route path="/user-personal-credentials-info/:user_id" element={<CardPassword />} />  

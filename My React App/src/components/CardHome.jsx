@@ -182,7 +182,7 @@ function CardHome() {
                   <p>Passwords</p>{" "}
                 </button>
               </Link>
-              <Link to={"/cardhelp"} className="widthfull">
+              <Link to={"/help-me/know-more"} className="widthfull">
                 <button className="buttons">
                   <span>
                     <IoIosHelpCircle className="vertical_nav_icon" />

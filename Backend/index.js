@@ -8,10 +8,18 @@ import User from "./models/User.js";
 import Password from "./models/Password.js";
 import crypto, { createCipheriv } from "crypto";
 import documentRoutes from "./routes/documentRoutes.js"
+import path from "path";
+import { fileURLToPath } from "url";
+import dotenv from 'dotenv';
+import { connectToDB } from "./controllers/mongoose.js";
 
 
 
 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename)
+dotenv.config();
 
 const algorithm = 'aes-256-cbc';
 const key = crypto.randomBytes(32);
@@ -55,23 +63,23 @@ let db_item;
 const hash = bcrypt;
 const saltRounds = 10;
 
-//connecting mongodb
-const db = mongoose;
+
 main().catch(err => console.log(err));
 
 
 
 
 async function main() {
-  await db.connect('mongodb://127.0.0.1:27017/docs');
-  console.log("db connected");
+  connectToDB();
 
-  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
+ 
 }
 
 
 server.use(cors());
 server.use(bodyParser.json());
+server.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // creating database
 server.post("/signup", async (req, res) => {

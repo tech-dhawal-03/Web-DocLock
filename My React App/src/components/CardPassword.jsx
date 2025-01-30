@@ -203,63 +203,65 @@ function CardPassword() {
     
   return (
     <>
-      <div className="cardhome_container">
-        <div className="upper_bar">
-          <img src={logo} alt="" />
-          <div className="welcome">
-            <h1>Welcome</h1>
-            <h3>{pass.user_data}</h3>
-          </div>
-        </div>
-
-        <div className="nav_container_card">
-          <div className="vertical_nav">
-            <Link to={"/logout-successful"}>
-              <button className="logout">
-                <div>
-                  <CiLogout className="logout_icon" />
-                </div>
-
-                <p>Logout</p>
-              </button>
-            </Link>
-            <div className="nav_content">
-              <Link to={"/cardprofile"} className="widthfull">
-                <button className="buttons">
-                  <span>
-                    <FaUserCircle className="vertical_nav_icon" />
-                  </span>
-                  <p>Profile</p>{" "}
-                </button>
-              </Link>
-              <Link to={"/carddocument"} className="widthfull">
-                {" "}
-                <button className="buttons">
-                  <span>
-                    <IoDocumentSharp className="vertical_nav_icon" />
-                  </span>
-                  <p>Documents</p>{" "}
-                </button>
-              </Link>
-              <Link to="/card-add-passwords" className="widthfull">
-                <button className="highlight">
-                  <span>
-                    <FaLock className="vertical_nav_icon" />
-                  </span>
-                  <p>Passwords</p>{" "}
-                </button>
-              </Link>
-              <Link to={"/cardhelp"} className="widthfull">
-                <button className="buttons">
-                  <span>
-                    <IoIosHelpCircle className="vertical_nav_icon" />
-                  </span>
-                  <p> Help</p>
-                </button>
-              </Link>
-            </div>
-            <img src={document} className="document_image" alt="" />
-          </div>
+     <div className="cardhome_container">
+             <div className="upper_bar">
+               <img src={logo} alt="logo" />
+               <div className="welcome">
+                 <h1>Welcome</h1>
+                 <h3>{pass.user_data}</h3>
+               </div>
+             </div>
+     
+             <div className="nav_container_card">
+               <div className="vertical_nav">
+                 <Link to={"/logout-successful"}>
+                   <button className="logout">
+                     <div>
+                       <CiLogout className="logout_icon" />
+                     </div>
+     
+                     <p>Logout</p>
+                   </button>
+                 </Link>
+                 <div className="nav_content">
+                   <Link to={`/user-personal-info/${pass.user_id}`} className="widthfull">
+                     <button className="buttons">
+                       <span>
+                         <FaUserCircle className="vertical_nav_icon" />
+                       </span>
+                       <p>Profile</p>{" "}
+                     </button>
+                   </Link>
+                   <Link to={`/card-add-document/${pass.user_id}`} className="widthfull">
+                     {" "}
+                     <button className="buttons">
+                       <span>
+                         <IoDocumentSharp className="vertical_nav_icon" />
+                       </span>
+                       <p>Documents</p>{" "}
+                     </button>
+                   </Link>
+                   <Link to={`/user-personal-credentials-info/${pass.user_id}`}
+                     className="widthfull"
+                   >
+                     <button className="highlight">
+                       <span>
+                         <FaLock className="vertical_nav_icon" />
+                       </span>
+                       <p>Passwords</p>{" "}
+                     </button>
+                   </Link>
+                   <Link to={"/help-me/know-more"} className="widthfull">
+                     <button className="buttons">
+                       <span>
+                         <IoIosHelpCircle className="vertical_nav_icon" />
+                       </span>
+                       <p> Help</p>
+                     </button>
+                   </Link>
+                 </div>
+                 <img src={document} className="document_image" alt="" />
+               </div>
 
           {/* credential code */}
           <div className="credential-container">
